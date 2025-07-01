@@ -1,5 +1,13 @@
 ## I. Objectif du projet
-Développer une application web de gestion des relations partenaires (PRM) pour structurer, suivre et optimiser les contacts professionnels du cabinet Laurent. 
+Développer une application web de gestion des relations partenaires (PRM) pour structur#### IV.1.b. **Backend NodeJS** :
+  - Framework **AdonisJS**
+  - Architecture **API REST** privée
+  - Sécurité : Auth0, CORS, ORM, validation des entrées, rate limiting, logging, audit OWASP
+  - Gestion des secrets : stockage sécurisé (variables d'environnement, gestionnaire de secrets), rotation régulière
+  - Logs d'accès et d'erreur : centralisation, monitoring, alerting (ex : Sentry, Datadog)
+  - Politique de sauvegarde/restauration : sauvegardes automatiques, tests réguliers de restauration, documentation des procédures
+  - Méthodologie : TDD (Test Driven Development) avec tests unitaires et d'intégration (Jest, Supertest, ou outils natifs Adonis)
+  - Qualité du code : **Oxlint** (linter ultra-rapide), **Commitlint** (conventions de commits), Prettier (formatage)re et optimiser les contacts professionnels du cabinet Laurent. 
 
 L’outil doit permettre de :
 - Organiser efficacement les partenaires
@@ -109,6 +117,7 @@ L’outil doit permettre de :
   - Architecture CSR (**Client Side Rendering**)
   - UI : Tailwind CSS avec séparation du style et du contenu
   - Authentification : OAuth2 avec LinkedIn
+  - Qualité du code : **Oxlint** (linter ultra-rapide), **Commitlint** (conventions de commits), Prettier (formatage)
 #### IV.1.b. **Backend NodeJS** :
   - Framework **AdonisJS**
   - Architecture **API REST** privée
@@ -292,6 +301,42 @@ const ecoMetrics = {
 - **Lighthouse CI** : Performance et éco-conception
 - **Bundle Analyzer** : Optimisation du code
 - **Vercel Analytics** : Real User Monitoringofessionnels du cabinet Laurent. 
+
+### IV.6. Qualité du code et versioning
+
+#### IV.6.1. Linting et formatage
+- **Oxlint** : Linter ultra-rapide écrit en Rust, jusqu'à 50x plus rapide qu'ESLint
+  - Configuration stricte TypeScript
+  - Détection d'erreurs communes React/Next.js
+  - Intégration native avec les éditeurs
+  - Support des règles ESLint les plus critiques
+- **Prettier** : Formatage automatique du code
+  - Configuration unifiée pour TS/JS/CSS/MD
+  - Intégration Git hooks pour formatage automatique
+
+#### IV.6.2. Conventions de commits
+- **Convention Gitmoji + Conventional Commits**
+  - Format : `<emoji> <type>: <description>`
+  - Exemples : `✨ feat: add partner archiving`, `🐛 fix: correct filter logic`
+- **Commitlint** : Validation automatique des messages de commit
+  - Règles strictes appliquées via Git hooks
+  - Génération automatique de changelog
+  - Intégration avec semantic-release pour versioning automatique
+
+#### IV.6.3. Git hooks et workflow
+- **Husky** : Gestion des Git hooks
+  - `pre-commit` : Oxlint + Prettier sur fichiers modifiés
+  - `commit-msg` : Validation Commitlint
+  - `pre-push` : Tests unitaires et build
+- **lint-staged** : Optimisation des hooks sur fichiers modifiés uniquement
+
+#### IV.6.4. Intégration continue (CI/CD)
+- **GitHub Actions** avec vérifications automatiques :
+  - Oxlint sur l'ensemble du codebase
+  - Tests unitaires et E2E
+  - Build et déploiement automatique
+  - Génération de rapports de qualité
+
 ---
 ## V. Interface utilisateur
 - Design simple, épuré, professionnel, respectant la charte graphique (à définir en juillet)
@@ -325,20 +370,21 @@ Cette section présente la correspondance entre les routes frontend (navigation 
 
 | Catégorie                | URL Frontend           | Description / Page principale                |
 |--------------------------|------------------------|----------------------------------------------|
-| Authentification         | /login                 | Connexion sécurisée (OAuth2)                 |
-| Tableau de bord          | /dashboard             | Vue d’ensemble, KPIs, notifications          |
-| Partenaires (listing)    | /partners              | Liste, recherche, filtres partenaires        |
-| Partenaire (fiche)       | /partners/:id          | Détail, historique, actions rapides          |
+| Authentification          | /login                 | Connexion sécurisée (OAuth2)                 |
+| Tableau de bord          | /dashboard             | Vue d’ensemble, KPIs, notifications           |
+| Partenaires (listing)    | /partners              | Liste, recherche, filtres partenaires         |
+| Partenaire (fiche)        | /partners/:id          | Détail, historique, actions rapides          |
 | Partenaire (création)    | /partners/new          | Création d’un partenaire                     |
-| Partenaire (édition)     | /partners/:id/edit     | Modification d’un partenaire                 |
-| Catégories & Tags          | /classifications            | Gestion des classifications (admin)          |
+| Partenaire (édition)     | /partners/:id/edit     | Modification d’un partenaire                  |
+| Catégories & Tags        | /classifications        | Gestion des classifications (admin)           |
 | Utilisateurs             | /users                 | Gestion des utilisateurs (admin)             |
 | Statistiques             | /stats                 | Tableaux de bord, analyses                   |
-| Notifications            | /notifications         | Liste et détail des notifications            |
 | Scan carte de visite     | /scan                  | OCR, ajout rapide de contact                 |
-| Profil utilisateur       | /profile               | Gestion du profil, préférences               |
+| Notifications             | /notifications          | Liste et détail des notifications             |
+| Profil utilisateur        | /profile                | Gestion du profil, préférences                |
 
 ### VIII.2. Tableau des routes backend
+
 
 | Catégorie      | Endpoint Backend                | Méthodes HTTP         | Exemple de code routeur (AdonisJS)                                                                                 |
 |----------------|--------------------------------|-----------------------|--------------------------------------------------------------------------------------------------------------------|
@@ -472,7 +518,7 @@ Architecture par feature, mutualisation des éléments transverses dans `shared/
 ├── next.config.js
 ├── tsconfig.json
 ├── jest.config.js
-├── .eslintrc.js
+├── oxlint.json
 ├── .prettierrc
 ├── .prettierignore
 ├── commitlint.config.js
@@ -521,7 +567,7 @@ Architecture par feature, mutualisation des éléments transverses dans `shared/
 ├── package.json
 ├── tsconfig.json
 ├── jest.config.js
-├── .eslintrc.js
+├── oxlint.json
 ├── .prettierrc
 ├── .prettierignore
 ├── commitlint.config.js
