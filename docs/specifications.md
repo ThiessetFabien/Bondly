@@ -24,14 +24,14 @@ L’outil doit permettre de :
 | --------------------------------- | :------------: | :--------: | :-----------: |
 | Gestion des partenaires           |       ✔️       |     🔒     |      🔒       |
 | Consultation des partenaires      |       ✔️       |     ✔️     |      ✔️       |
-| Création/modification partenaires |       ✔️       |     🔒     |      🔒       |
+| Création/modification partenaires  |       ✔️       |     🔒     |      🔒       |
 | Archivage/blacklist partenaires   |       ✔️       |     🔒     |      🔒       |
-| Gestion des classifications       |       ✔️       |     🔒     |      🔒       |
-| Consultation des classifications  |       ✔️       |     ✔️     |      ✔️       |
+| Gestion des classifications        |       ✔️       |     🔒     |      🔒       |
+| Consultation des classifications   |       ✔️       |     ✔️     |      ✔️       |
 | Statistiques                      |       ✔️       |     🔒     |      ✔️       |
-| Notifications                     |       ✔️       |     ✔️     |      ✔️       |
+| Notifications                      |       ✔️       |     ✔️     |      ✔️       |
 | Scan carte de visite (OCR)        |       ✔️       |     ✔️     |      ✔️       |
-| Gestion du profil                 |       ✔️       |     ✔️     |      ✔️       |
+| Gestion du profil                  |       ✔️       |     ✔️     |      ✔️       |
 | Gestion des utilisateurs          |       ✔️       |     🔒     |      🔒       |
 
 > ✔️ : Accès complet / 🔒 : Accès restreint ou non autorisé
