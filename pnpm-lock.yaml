@@ -36,6 +36,9 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.1.6(@types/react@19.1.8)
+      commitlint-config-gitmoji:
+        specifier: ^2.3.1
+        version: 2.3.1
       gitmoji-cli:
         specifier: ^9.7.0
         version: 9.7.0
@@ -138,12 +141,25 @@ packages:
     resolution: {integrity: sha512-Ph8IN1IOHPSDhURCSXBz44+CIu+60duFwRsg6HqaISFHQHbmBtxVw4ZrFNIYUzEP7WwrNPxa2/5qJ//NK1FGcw==}
     engines: {node: '>=v18'}
 
+  '@commitlint/types@17.8.1':
+    resolution: {integrity: sha512-PXDQXkAmiMEG162Bqdh9ChML/GJZo6vU+7F03ALKDK8zYc6SuAr47LjG7hGYRqUOz+WK0dU7bQ0xzuqFMdxzeQ==}
+    engines: {node: '>=v14'}
+
   '@commitlint/types@19.8.1':
     resolution: {integrity: sha512-/yCrWGCoA1SVKOks25EGadP9Pnj0oAIHGpl2wH2M2Y46dPM2ueb8wyCVOD7O3WCTkaJ0IkKvzhl1JY7+uCT2Dw==}
     engines: {node: '>=v18'}
 
   '@emnapi/runtime@1.4.3':
     resolution: {integrity: sha512-pBPWdu6MLKROBX05wSNKcNb++m5Er+KQ9QkB+WVM+pW2Kx9hoSrVTnu3BdkI5eBLZoKu/J6mW/B6i6bJB2ytXQ==}
+
+  '@gitmoji/commit-types@1.1.5':
+    resolution: {integrity: sha512-8D3FZMRY+gtYpTcHG1SOGmm9CFqxNh6rI9xDoCydxHxnWgqInbdF3nk9gibW5gXA58Hf2cVcJaLEcGOKLRAtmw==}
+
+  '@gitmoji/gitmoji-regex@1.0.0':
+    resolution: {integrity: sha512-+BFXxcWCxn0UIYuG1v5n9SfaCCS8tw95j1x3QsTJRdGGiihRyVLTHiu1wrHlzH3z4nYXKjCKiZFTdWwMjRI+gQ==}
+
+  '@gitmoji/parser-opts@1.4.0':
+    resolution: {integrity: sha512-zzmx/vtpdB/ijjUm7u9OzHNCXWKpSbzVEgVzOzhilMgoTBlUDyInZFUtiCTV+Wf4oCP9nxGa/kQGQFfN+XLH1g==}
 
   '@img/sharp-darwin-arm64@0.34.2':
     resolution: {integrity: sha512-OfXHZPppddivUJnqyKoi5YVeHRkkNE2zUFT2gbpKxp/JZCFYEYubnMg+gOp6lWfasPrTS+KPosKqdI+ELYVDtg==}
@@ -626,6 +642,12 @@ packages:
     resolution: {integrity: sha512-2uM9rYjPvyq39NwLRqaiLtWHyDC1FvryJDa2ATTVims5YAS4PupsEQsDvP14FqhFr0P49CYDugi59xaxJlTXRA==}
     engines: {node: '>=20'}
 
+  commitlint-config-gitmoji@2.3.1:
+    resolution: {integrity: sha512-T15ssbsyNc6szHlnGWo0/xvIA1mObqM70E9TwKNVTpksxhm+OdFht8hvDdKJAVi4nlZX5tcfTeILOi7SHBGH3w==}
+
+  commitlint-plugin-gitmoji@2.2.6:
+    resolution: {integrity: sha512-oKHPHeNXby0Ix0ZbHVSK5ZyPx1V4fyBjLOy93cYwXhOEPXe36nkDc/HDPFfQpzx1vz39277TaP9LScbqTbscfQ==}
+
   compare-func@2.0.0:
     resolution: {integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==}
 
@@ -846,6 +868,9 @@ packages:
     resolution: {integrity: sha512-B3IFBO7kh2ysf872U0iaL5DbbkQJ5X8SIl3PCqt21ImBibszTsx+uCP6l0vlH2WrZjD3J2zEC2UpsYqqAbEQDQ==}
     engines: {node: '>=18'}
     hasBin: true
+
+  gitmojis@3.15.0:
+    resolution: {integrity: sha512-28sothO0+6UuXx0fnJXi4kqy2/dKeFN3xL2Ss5k5K5ECBJMi5T2kZLY92xys3/+YD+AgKHgeiw7YQpYKnkCLMg==}
 
   global-directory@4.0.1:
     resolution: {integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==}
@@ -1801,6 +1826,10 @@ snapshots:
     dependencies:
       find-up: 7.0.0
 
+  '@commitlint/types@17.8.1':
+    dependencies:
+      chalk: 4.1.2
+
   '@commitlint/types@19.8.1':
     dependencies:
       '@types/conventional-commits-parser': 5.0.1
@@ -1810,6 +1839,17 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
+
+  '@gitmoji/commit-types@1.1.5': {}
+
+  '@gitmoji/gitmoji-regex@1.0.0':
+    dependencies:
+      emoji-regex: 10.4.0
+      gitmojis: 3.15.0
+
+  '@gitmoji/parser-opts@1.4.0':
+    dependencies:
+      '@gitmoji/gitmoji-regex': 1.0.0
 
   '@img/sharp-darwin-arm64@0.34.2':
     optionalDependencies:
@@ -2203,6 +2243,19 @@ snapshots:
 
   commander@14.0.0: {}
 
+  commitlint-config-gitmoji@2.3.1:
+    dependencies:
+      '@commitlint/types': 17.8.1
+      '@gitmoji/commit-types': 1.1.5
+      '@gitmoji/parser-opts': 1.4.0
+      commitlint-plugin-gitmoji: 2.2.6
+
+  commitlint-plugin-gitmoji@2.2.6:
+    dependencies:
+      '@commitlint/types': 17.8.1
+      '@gitmoji/gitmoji-regex': 1.0.0
+      gitmojis: 3.15.0
+
   compare-func@2.0.0:
     dependencies:
       array-ify: 1.0.0
@@ -2433,6 +2486,8 @@ snapshots:
       validator: 13.15.15
     transitivePeerDependencies:
       - supports-color
+
+  gitmojis@3.15.0: {}
 
   global-directory@4.0.1:
     dependencies:
