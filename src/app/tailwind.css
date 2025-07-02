@@ -1,0 +1,4 @@
+@import 'tailwindcss/preflight';
+@tailwind utilities;
+
+/* Ajoutez ici vos styles globaux ou utilitaires personnalisés si besoin */

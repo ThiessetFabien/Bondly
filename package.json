@@ -6,8 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "lint": "oxlint src/",
+    "lint:fix": "oxlint src/ --fix",
+    "lint:next": "next lint --fix",
     "type-check": "tsc --noEmit",
     "test": "echo \"Tests not configured yet\" && exit 0",
     "format": "prettier --write .",
@@ -20,9 +21,14 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.525.0",
     "next": "15.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
@@ -33,9 +39,12 @@
     "@types/react-dom": "^19",
     "commitlint-config-gitmoji": "^2.3.1",
     "commitlint-plugin-function-rules": "^4.0.2",
+    "eslint": "^9.30.1",
+    "eslint-config-next": "15.3.4",
     "gitmoji-cli": "^9.7.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
+    "oxlint": "^1.5.0",
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5"
