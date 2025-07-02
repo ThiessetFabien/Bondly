@@ -1,12 +1,35 @@
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
+  extends: ['gitmoji'],
   rules: {
-    // Configuration très permissive pour gitmoji
-    'type-empty': [0],
-    'type-enum': [0],
-    'subject-empty': [0], // Désactivé car complexe avec gitmoji
+    // Type conventionnel obligatoire
+    'type-empty': [2, 'never'],
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'chore',
+        'ci',
+        'build',
+        'revert',
+        'security',
+        'config',
+      ],
+    ],
+
+    // Message obligatoire et de qualité
+    'subject-empty': [2, 'never'],
+    'subject-min-length': [2, 'always', 5],
     'subject-full-stop': [2, 'never', '.'],
-    'subject-case': [0],
+    'subject-case': [2, 'always', ['sentence-case', 'lower-case']],
+
+    // Limites de longueur
     'header-max-length': [2, 'always', 100],
     'body-leading-blank': [1, 'always'],
     'body-max-line-length': [2, 'always', 100],

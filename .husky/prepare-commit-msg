@@ -11,26 +11,29 @@ fi
 # Ajouter un template si le message est vide
 if [ ! -s "$COMMIT_MSG_FILE" ]; then
   cat > "$COMMIT_MSG_FILE" << 'EOF'
-# Utilisez le format: type(scope): description
+# Utilisez le format: [gitmoji] type(scope): description
 #
 # Types disponibles:
-# feat:     ✨ nouvelle fonctionnalité
-# fix:      🐛 correction de bug  
-# docs:     📝 documentation
-# style:    🎨 formatage, style
-# refactor: ♻️ refactoring
-# perf:     ⚡ performance
-# test:     ✅ tests
-# chore:    🔧 maintenance
-# ci:       🚀 CI/CD
-# build:    📦 build
-# security: 🔒 sécurité
-# config:   ⚙️ configuration
+# feat:     :sparkles: ✨ nouvelle fonctionnalité
+# fix:      :bug: 🐛 correction de bug  
+# docs:     :memo: 📝 documentation
+# style:    :art: 🎨 formatage, style
+# refactor: :recycle: ♻️ refactoring
+# perf:     :zap: ⚡ performance
+# test:     :white_check_mark: ✅ tests
+# chore:    :wrench: 🔧 maintenance
+# ci:       :green_heart: � CI/CD
+# build:    :package: 📦 build
+# security: :lock: 🔒 sécurité
+# config:   :gear: ⚙️ configuration
 #
 # Scopes suggérés pour RPM-CL:
 # auth, partners, users, classifications, notifications,
 # stats, api, ui, config, database, security, tests, docs
 #
-# Exemple: feat(auth): add OAuth2 LinkedIn integration
+# Exemples valides:
+# :sparkles: feat(auth): add OAuth2 LinkedIn integration
+# 🐛 fix(partners): resolve pagination bug
+# :wrench: chore: improve commit configuration
 EOF
 fi

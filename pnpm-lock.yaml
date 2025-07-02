@@ -39,6 +39,9 @@ importers:
       commitlint-config-gitmoji:
         specifier: ^2.3.1
         version: 2.3.1
+      commitlint-plugin-function-rules:
+        specifier: ^4.0.2
+        version: 4.0.2(@commitlint/lint@19.8.1)
       gitmoji-cli:
         specifier: ^9.7.0
         version: 9.7.0
@@ -644,6 +647,12 @@ packages:
 
   commitlint-config-gitmoji@2.3.1:
     resolution: {integrity: sha512-T15ssbsyNc6szHlnGWo0/xvIA1mObqM70E9TwKNVTpksxhm+OdFht8hvDdKJAVi4nlZX5tcfTeILOi7SHBGH3w==}
+
+  commitlint-plugin-function-rules@4.0.2:
+    resolution: {integrity: sha512-sNAGb10MxaTgB0GdASD7hWclcXMSkoRtegNyGvp3VN0ZqXm/7/5p4kNv4Ei3mjgaEwpGTLcqj0ka7MtolONG0Q==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@commitlint/lint': '>=19 <20'
 
   commitlint-plugin-gitmoji@2.2.6:
     resolution: {integrity: sha512-oKHPHeNXby0Ix0ZbHVSK5ZyPx1V4fyBjLOy93cYwXhOEPXe36nkDc/HDPFfQpzx1vz39277TaP9LScbqTbscfQ==}
@@ -2249,6 +2258,10 @@ snapshots:
       '@gitmoji/commit-types': 1.1.5
       '@gitmoji/parser-opts': 1.4.0
       commitlint-plugin-gitmoji: 2.2.6
+
+  commitlint-plugin-function-rules@4.0.2(@commitlint/lint@19.8.1):
+    dependencies:
+      '@commitlint/lint': 19.8.1
 
   commitlint-plugin-gitmoji@2.2.6:
     dependencies:

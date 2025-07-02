@@ -13,6 +13,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "commit": "gitmoji -c",
+    "commit:help": "./scripts/commit-help.sh",
+    "commit:test": "./scripts/test-commit-format.sh",
     "commitlint": "commitlint --edit",
     "validate-commits": "commitlint --from=HEAD~1 --to=HEAD --verbose",
     "prepare": "husky"
@@ -30,6 +32,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "commitlint-config-gitmoji": "^2.3.1",
+    "commitlint-plugin-function-rules": "^4.0.2",
     "gitmoji-cli": "^9.7.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.2",
