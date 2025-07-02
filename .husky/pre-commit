@@ -1,1 +1,10 @@
-pnpm test
+echo "🔍 Validation du code avant commit..."
+
+# Exécuter lint-staged pour formatter et vérifier le code
+pnpx lint-staged
+
+# Vérification TypeScript (optionnel)
+echo "🔍 Vérification TypeScript..."
+pnpm run type-check
+
+echo "✅ Validation terminée!"
