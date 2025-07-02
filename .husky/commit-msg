@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Validation du message de commit avec commitlint
+pnpx commitlint --edit $1
+
+# Afficher un message d'aide en cas d'erreur
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Message de commit invalide!"
+  echo ""
+  echo "Format attendu: type(scope): description"
+  echo "Exemple: feat(auth): add OAuth2 LinkedIn integration"
+  echo ""
+  echo "Types autorisés: feat, fix, docs, style, refactor, perf, test, chore, ci, build, revert, security, config"
+  echo "Scopes suggérés: auth, partners, users, classifications, notifications, stats, api, ui, config, database, security, tests, docs"
+  echo ""
+  echo "Guide: https://conventionalcommits.org/"
+  echo ""
+  exit 1
+fi

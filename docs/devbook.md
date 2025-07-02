@@ -24,12 +24,14 @@
 **RPM-CL** est une application web de **gestion des relations partenaires (PRM)** développée spécifiquement pour structurer, suivre et optimiser les contacts professionnels du cabinet Laurent.
 
 #### Objectifs principaux :
+
 - **Organiser efficacement** les partenaires professionnels
 - **Retrouver rapidement** les bons contacts selon différents critères
 - **Suivre l'historique** des recommandations et des mises en relation
 - **Améliorer la qualité** du réseau et la stratégie de cross-selling/up-selling
 
 #### Valeur ajoutée :
+
 - **Gain de temps** : Recherche et filtrage avancés
 - **Professionnalisme** : Interface épurée et mobile-first
 - **Sécurité** : Conformité RGPD stricte avec audit trail
@@ -38,16 +40,16 @@
 ### 1.2. Périmètre fonctionnel MVP
 
 #### Fonctionnalités principales :
+
 - ✅ **Gestion des fiches partenaires** : création, modification, archivage, notation (1-5 étoiles)
 - ✅ **Recherche et filtres avancés** : par métier, nom, notation, statut
 - ✅ **Classifications hiérarchiques** : métiers, sous-métiers, tags
-- ✅ **Actions rapides** : appel direct, email, liens LinkedIn
+- ✅ **Actions rapides** : appel direct, email
 - ✅ **Historique des recommandations** : clients envoyés/reçus
 - ✅ **Interface mobile-first** : optimisée pour la saisie rapide
-- ✅ **Gestion des rôles** : Admin/Consultant/Collaborateur
-- ✅ **Scan OCR** : cartes de visite automatisées
 
 #### Spécialités métiers supportées :
+
 - Avocats d'affaires, Fiscalistes, Spécialistes droit du travail
 - Huissiers de justice, Banques, Compagnies d'affacturage
 - Assureurs, Cabinets de gestion de patrimoine
@@ -56,15 +58,17 @@
 ### 1.3. Contraintes et exigences
 
 #### Contraintes techniques :
+
 - **Compatibilité** : Chrome, Firefox, Edge (desktop) + Chrome, Firefox (mobile)
 - **Performance** : Temps de chargement < 2s, First Contentful Paint < 1.2s
 - **Éco-conception** : < 1g CO2 par page vue, bundle < 150kb
 - **Accessibilité** : Conformité WCAG, navigation clavier, contrastes
 
 #### Contraintes réglementaires :
+
 - **RGPD** : Chiffrement, droit à l'oubli, consentement explicite
 - **Audit trail** : Traçabilité complète des actions sensibles
-- **Authentification** : OAuth2 LinkedIn, gestion des sessions sécurisées
+- **Authentification** : Gestion des sessions sécurisées
 
 ---
 
@@ -73,53 +77,50 @@
 ### 2.1. Stack technologique
 
 #### Vue d'ensemble de l'architecture
+
 ```mermaid
 graph TB
     subgraph "Frontend - Vercel"
         A[Next.js 15 App Router] --> B[React 18 + TypeScript]
         B --> C[Tailwind CSS + Headless UI]
-        C --> D[OAuth2 LinkedIn]
     end
-    
+
     subgraph "Backend - Railway"
         E[AdonisJS v6] --> F[Lucid ORM]
         F --> G[Node.js + TypeScript]
         G --> H[API REST privée]
     end
-    
+
     subgraph "Base de données - Supabase"
         I[PostgreSQL 15]
         J[Redis Cache]
     end
-    
+
     subgraph "Services externes"
-        K[LinkedIn API]
-        L[Tesseract.js OCR]
         M[Sentry Monitoring]
     end
-    
+
     A --> H
     F --> I
     E --> J
-    H --> K
-    A --> L
     A --> M
 ```
 
 #### Justifications des choix techniques
 
-| Composant | Technologie | Justification |
-|-----------|-------------|---------------|
-| **Frontend** | Next.js 15 | App Router, RSC, optimisations natives, SSR/CSR hybride |
-| **Backend** | AdonisJS v6 | TypeScript natif, ORM Lucid, architecture MVC robuste |
-| **Base de données** | PostgreSQL | Recherches complexes, relations, performance, ACID |
-| **Cache** | Redis | Sessions, cache API, performance temps réel |
-| **Hébergement** | Vercel + Railway | Edge computing, scaling auto, CI/CD intégré |
-| **Monitoring** | Sentry + Vercel Analytics | Debugging production, métriques temps réel |
+| Composant           | Technologie               | Justification                                           |
+| ------------------- | ------------------------- | ------------------------------------------------------- |
+| **Frontend**        | Next.js 15                | App Router, RSC, optimisations natives, SSR/CSR hybride |
+| **Backend**         | AdonisJS v6               | TypeScript natif, ORM Lucid, architecture MVC robuste   |
+| **Base de données** | PostgreSQL                | Recherches complexes, relations, performance, ACID      |
+| **Cache**           | Redis                     | Sessions, cache API, performance temps réel             |
+| **Hébergement**     | Vercel + Railway          | Edge computing, scaling auto, CI/CD intégré             |
+| **Monitoring**      | Sentry + Vercel Analytics | Debugging production, métriques temps réel              |
 
 ### 2.2. Architecture par features
 
 #### Principe d'organisation
+
 ```
 /features
 ├── partners/          # Gestion des partenaires
@@ -127,11 +128,12 @@ graph TB
 ├── classifications/  # Métiers, sous-métiers, tags
 ├── notifications/    # Système de notifications
 ├── stats/           # Statistiques et analytics
-├── auth/            # Authentification OAuth2
+├── auth/            # Authentification utilisateur
 └── shared/          # Composants transverses
 ```
 
 #### Avantages de cette approche :
+
 - **Isolation** : Chaque feature est autonome
 - **Maintenabilité** : Refactoring facilité
 - **Tests** : Tests au plus près du code métier
@@ -140,6 +142,7 @@ graph TB
 ### 2.3. Optimisations performance et éco-conception
 
 #### Configuration Next.js optimisée
+
 ```typescript
 // next.config.js
 const nextConfig = {
@@ -161,16 +164,17 @@ const nextConfig = {
 ```
 
 #### Stratégie de cache multi-niveaux
+
 ```typescript
 const cacheStrategy = {
   // Browser cache
   'static-assets': '1y',
   'api-responses': '5m',
-  
+
   // CDN cache (Vercel Edge)
   'partner-list': '1h',
-  'classifications': '24h',
-  
+  classifications: '24h',
+
   // Server cache (Redis)
   'search-results': '15m',
   'user-session': '30m',
@@ -178,6 +182,7 @@ const cacheStrategy = {
 ```
 
 #### Métriques éco-responsabilité cibles
+
 - **Empreinte carbone** : < 1g CO2 par page vue
 - **Transfer de données** : < 2MB par session
 - **Cache hit ratio** : > 85%
@@ -190,6 +195,7 @@ const cacheStrategy = {
 ### 3.1. Prérequis système
 
 #### Outils requis
+
 ```fish
 # Node.js et gestionnaire de paquets
 node --version  # >= 18.17.0
@@ -207,15 +213,16 @@ docker --version  # Optionnel pour conteneurisation
 ```
 
 #### Services externes requis
+
 - **Compte Vercel** : Hébergement frontend
 - **Compte Railway** : Hébergement backend
 - **Compte Supabase** : Base de données managée
-- **LinkedIn Developer** : OAuth2 et API
 - **Sentry** : Monitoring erreurs
 
 ### 3.2. Installation complète du projet
 
 #### 1. Clonage et setup initial
+
 ```fish
 # Cloner le repository
 git clone https://github.com/cabinet-laurent/rpm-cl.git
@@ -231,12 +238,11 @@ bun install --workspaces
 #### 2. Configuration des variables d'environnement
 
 **Frontend (.env.local)**
+
 ```bash
 # Authentication
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-super-secret-key
-LINKEDIN_CLIENT_ID=your-linkedin-client-id
-LINKEDIN_CLIENT_SECRET=your-linkedin-client-secret
 
 # API Backend
 NEXT_PUBLIC_API_URL=http://localhost:3333/api
@@ -248,6 +254,7 @@ NEXT_PUBLIC_VERCEL_ANALYTICS_ID=your-vercel-analytics-id
 ```
 
 **Backend (.env)**
+
 ```bash
 # Application
 NODE_ENV=development
@@ -269,16 +276,13 @@ REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 REDIS_PASSWORD=
 
-# LinkedIn API
-LINKEDIN_CLIENT_ID=your-linkedin-client-id
-LINKEDIN_CLIENT_SECRET=your-linkedin-client-secret
-
 # Security
 SESSION_DRIVER=redis
 HASH_DRIVER=bcrypt
 ```
 
 #### 3. Setup base de données
+
 ```fish
 # Démarrer PostgreSQL et Redis
 sudo service postgresql start
@@ -295,6 +299,7 @@ node ace db:seed
 ```
 
 #### 4. Démarrage en mode développement
+
 ```fish
 # Terminal 1 - Backend AdonisJS
 cd backend
@@ -311,6 +316,7 @@ bun run test:watch
 ### 3.3. Configuration Docker (optionnelle)
 
 #### docker-compose.yml
+
 ```yaml
 version: '3.8'
 services:
@@ -322,23 +328,23 @@ services:
       POSTGRES_PASSWORD: rpm_password
       POSTGRES_DB: rpm_development
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  
+
   # Cache Redis
   redis:
     image: redis:7-alpine
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - redis_data:/data
-  
+
   # Backend AdonisJS
   backend:
     build: ./backend
     ports:
-      - "3333:3333"
+      - '3333:3333'
     depends_on:
       - postgres
       - redis
@@ -347,12 +353,12 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-  
+
   # Frontend Next.js
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - backend
     environment:
@@ -367,6 +373,7 @@ volumes:
 ```
 
 #### Commandes Docker
+
 ```fish
 # Démarrer tous les services
 docker-compose up -d
@@ -496,6 +503,7 @@ frontend/
 #### Exemple de composant Partner avec architecture par feature
 
 **`src/features/partners/components/PartnerCard.tsx`**
+
 ```tsx
 import { type FC } from 'react'
 import { Phone, Mail, Star, Archive, AlertTriangle } from 'lucide-react'
@@ -518,34 +526,46 @@ export const PartnerCard: FC<PartnerCardProps> = ({
   onCall,
   onEmail,
 }) => {
-  const { id, firstName, lastName, email, phone, company, rating, isBlacklisted, classifications } = partner
+  const {
+    id,
+    firstName,
+    lastName,
+    email,
+    phone,
+    company,
+    rating,
+    isBlacklisted,
+    classifications,
+  } = partner
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+    <div className='bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow'>
       {/* Header */}
-      <div className="flex justify-between items-start mb-4">
+      <div className='flex justify-between items-start mb-4'>
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className='text-lg font-semibold text-gray-900'>
             {firstName} {lastName}
           </h3>
-          <p className="text-sm text-gray-600">{company}</p>
+          <p className='text-sm text-gray-600'>{company}</p>
         </div>
-        
+
         {/* Status badges */}
-        <div className="flex gap-2">
+        <div className='flex gap-2'>
           {isBlacklisted && (
-            <Badge variant="destructive" className="flex items-center gap-1">
-              <AlertTriangle className="w-3 h-3" />
+            <Badge variant='destructive' className='flex items-center gap-1'>
+              <AlertTriangle className='w-3 h-3' />
               Blacklisté
             </Badge>
           )}
           {rating && (
-            <div className="flex items-center gap-1">
+            <div className='flex items-center gap-1'>
               {Array.from({ length: 5 }, (_, i) => (
                 <Star
                   key={i}
                   className={`w-4 h-4 ${
-                    i < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
+                    i < rating
+                      ? 'text-yellow-400 fill-current'
+                      : 'text-gray-300'
                   }`}
                 />
               ))}
@@ -556,9 +576,9 @@ export const PartnerCard: FC<PartnerCardProps> = ({
 
       {/* Classifications */}
       {classifications && classifications.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {classifications.map((classification) => (
-            <Badge key={classification.id} variant="secondary">
+        <div className='flex flex-wrap gap-2 mb-4'>
+          {classifications.map(classification => (
+            <Badge key={classification.id} variant='secondary'>
               {classification.name}
             </Badge>
           ))}
@@ -566,43 +586,43 @@ export const PartnerCard: FC<PartnerCardProps> = ({
       )}
 
       {/* Actions */}
-      <div className="flex justify-between items-center">
-        <div className="flex gap-2">
+      <div className='flex justify-between items-center'>
+        <div className='flex gap-2'>
           {phone && (
             <Button
-              variant="outline"
-              size="sm"
+              variant='outline'
+              size='sm'
               onClick={() => onCall(phone)}
-              className="flex items-center gap-1"
+              className='flex items-center gap-1'
             >
-              <Phone className="w-4 h-4" />
+              <Phone className='w-4 h-4' />
               Appeler
             </Button>
           )}
           {email && (
             <Button
-              variant="outline"
-              size="sm"
+              variant='outline'
+              size='sm'
               onClick={() => onEmail(email)}
-              className="flex items-center gap-1"
+              className='flex items-center gap-1'
             >
-              <Mail className="w-4 h-4" />
+              <Mail className='w-4 h-4' />
               Email
             </Button>
           )}
         </div>
-        
-        <div className="flex gap-2">
-          <Button variant="ghost" size="sm" onClick={() => onEdit(id)}>
+
+        <div className='flex gap-2'>
+          <Button variant='ghost' size='sm' onClick={() => onEdit(id)}>
             Modifier
           </Button>
           <Button
-            variant="ghost"
-            size="sm"
+            variant='ghost'
+            size='sm'
             onClick={() => onArchive(id)}
-            className="text-red-600 hover:text-red-700"
+            className='text-red-600 hover:text-red-700'
           >
-            <Archive className="w-4 h-4" />
+            <Archive className='w-4 h-4' />
           </Button>
         </div>
       </div>
@@ -612,6 +632,7 @@ export const PartnerCard: FC<PartnerCardProps> = ({
 ```
 
 **`src/features/partners/hooks/usePartners.ts`**
+
 ```tsx
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { partnerApi } from '../services/partnerApi'
@@ -635,7 +656,7 @@ export const usePartner = (id: string) => {
 
 export const useCreatePartner = () => {
   const queryClient = useQueryClient()
-  
+
   return useMutation({
     mutationFn: partnerApi.create,
     onSuccess: () => {
@@ -646,7 +667,7 @@ export const useCreatePartner = () => {
 
 export const useUpdatePartner = () => {
   const queryClient = useQueryClient()
-  
+
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<Partner> }) =>
       partnerApi.update(id, data),
@@ -659,7 +680,7 @@ export const useUpdatePartner = () => {
 
 export const useArchivePartner = () => {
   const queryClient = useQueryClient()
-  
+
   return useMutation({
     mutationFn: partnerApi.archive,
     onSuccess: () => {
@@ -693,7 +714,6 @@ backend/
 │   │   │   ├── policies/    # Politiques d'autorisation
 │   │   │   │   └── PartnerPolicy.ts
 │   │   │   ├── jobs/        # Jobs asynchrones
-│   │   │   │   └── SyncLinkedInJob.ts
 │   │   │   └── __tests__/   # Tests feature
 │   │   │       ├── controllers/
 │   │   │       ├── services/
@@ -706,7 +726,6 @@ backend/
 │   ├── shared/              # Éléments transverses
 │   │   ├── middleware/      # Middlewares globaux
 │   │   │   ├── AuthMiddleware.ts
-│   │   │   ├── RoleMiddleware.ts
 │   │   │   └── AuditMiddleware.ts
 │   │   ├── exceptions/      # Exceptions personnalisées
 │   │   │   ├── BusinessException.ts
@@ -762,6 +781,7 @@ backend/
 #### Exemple de contrôleur Partner avec architecture par feature
 
 **`app/features/partners/controllers/PartnerController.ts`**
+
 ```typescript
 import type { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
@@ -916,7 +936,7 @@ export default class PartnerController {
       })
     } catch (error) {
       return response.internalServerError({
-        message: 'Erreur lors de l\'archivage du partenaire',
+        message: "Erreur lors de l'archivage du partenaire",
         error: error.message,
       })
     }
@@ -925,12 +945,17 @@ export default class PartnerController {
 ```
 
 **`app/features/partners/services/PartnerService.ts`**
+
 ```typescript
 import { inject } from '@adonisjs/core'
 import Partner from '../models/Partner'
 import Classification from '../../classifications/models/Classification'
 import { AuditService } from '../../../shared/services/AuditService'
-import type { CreatePartnerData, UpdatePartnerData, PartnerFilters } from '../types'
+import type {
+  CreatePartnerData,
+  UpdatePartnerData,
+  PartnerFilters,
+} from '../types'
 import type User from '../../users/models/User'
 
 @inject()
@@ -952,7 +977,7 @@ export class PartnerService {
 
     // Appliquer les filtres
     if (filters.search) {
-      query.where((subQuery) => {
+      query.where(subQuery => {
         subQuery
           .whereILike('firstName', `%${filters.search}%`)
           .orWhereILike('lastName', `%${filters.search}%`)
@@ -962,7 +987,7 @@ export class PartnerService {
     }
 
     if (filters.classification) {
-      query.whereHas('classifications', (classificationQuery) => {
+      query.whereHas('classifications', classificationQuery => {
         classificationQuery.where('id', filters.classification)
       })
     }
@@ -981,10 +1006,16 @@ export class PartnerService {
     const partners = await query.paginate(pagination.page, pagination.limit)
 
     // Audit de la consultation
-    await this.auditService.log(user.id, 'PARTNER_LIST_VIEWED', 'Partner', null, {
-      filters,
-      resultCount: partners.total,
-    })
+    await this.auditService.log(
+      user.id,
+      'PARTNER_LIST_VIEWED',
+      'Partner',
+      null,
+      {
+        filters,
+        resultCount: partners.total,
+      }
+    )
 
     return partners
   }
@@ -1030,13 +1061,19 @@ export class PartnerService {
     await partner.load('createdBy')
 
     // Audit de la création
-    await this.auditService.log(user.id, 'PARTNER_CREATED', 'Partner', partner.id, {
-      partnerData: {
-        name: `${partner.firstName} ${partner.lastName}`,
-        company: partner.company,
-        email: partner.email,
-      },
-    })
+    await this.auditService.log(
+      user.id,
+      'PARTNER_CREATED',
+      'Partner',
+      partner.id,
+      {
+        partnerData: {
+          name: `${partner.firstName} ${partner.lastName}`,
+          company: partner.company,
+          email: partner.email,
+        },
+      }
+    )
 
     return partner
   }
@@ -1070,11 +1107,17 @@ export class PartnerService {
     await partner.load('classifications')
 
     // Audit de la modification
-    await this.auditService.log(user.id, 'PARTNER_UPDATED', 'Partner', partner.id, {
-      oldData,
-      newData: partner.toJSON(),
-      changes: this.getChangedFields(oldData, partner.toJSON()),
-    })
+    await this.auditService.log(
+      user.id,
+      'PARTNER_UPDATED',
+      'Partner',
+      partner.id,
+      {
+        oldData,
+        newData: partner.toJSON(),
+        changes: this.getChangedFields(oldData, partner.toJSON()),
+      }
+    )
 
     return partner
   }
@@ -1094,12 +1137,18 @@ export class PartnerService {
     await partner.save()
 
     // Audit de l'archivage
-    await this.auditService.log(user.id, 'PARTNER_ARCHIVED', 'Partner', partner.id, {
-      partnerData: {
-        name: `${partner.firstName} ${partner.lastName}`,
-        company: partner.company,
-      },
-    })
+    await this.auditService.log(
+      user.id,
+      'PARTNER_ARCHIVED',
+      'Partner',
+      partner.id,
+      {
+        partnerData: {
+          name: `${partner.firstName} ${partner.lastName}`,
+          company: partner.company,
+        },
+      }
+    )
 
     return true
   }
@@ -1109,9 +1158,17 @@ export class PartnerService {
    */
   private getChangedFields(oldData: any, newData: any): string[] {
     const changes: string[] = []
-    const fieldsToCheck = ['firstName', 'lastName', 'email', 'phone', 'company', 'rating', 'isBlacklisted']
+    const fieldsToCheck = [
+      'firstName',
+      'lastName',
+      'email',
+      'phone',
+      'company',
+      'rating',
+      'isBlacklisted',
+    ]
 
-    fieldsToCheck.forEach((field) => {
+    fieldsToCheck.forEach(field => {
       if (oldData[field] !== newData[field]) {
         changes.push(field)
       }
@@ -1129,20 +1186,22 @@ export class PartnerService {
 ### 5.1. Conventions de code et bonnes pratiques
 
 #### Conventions de nommage
-| Élément | Convention | Exemple |
-|---------|------------|---------|
-| **Variables** | camelCase | `partnerList`, `userId` |
-| **Fonctions** | camelCase | `getPartnerById()`, `fetchUsers()` |
-| **Classes** | PascalCase | `PartnerController`, `UserService` |
-| **Interfaces/Types** | PascalCase | `PartnerDTO`, `UserRole` |
-| **Enums** | PascalCase | `PartnerStatus`, `UserType` |
-| **Fichiers** | kebab-case | `partner-controller.ts` |
-| **Dossiers** | kebab-case | `user-services/` |
-| **Constantes** | UPPER_SNAKE_CASE | `API_URL`, `MAX_PARTNERS` |
+
+| Élément              | Convention       | Exemple                            |
+| -------------------- | ---------------- | ---------------------------------- |
+| **Variables**        | camelCase        | `partnerList`, `userId`            |
+| **Fonctions**        | camelCase        | `getPartnerById()`, `fetchUsers()` |
+| **Classes**          | PascalCase       | `PartnerController`, `UserService` |
+| **Interfaces/Types** | PascalCase       | `PartnerDTO`, `UserType`           |
+| **Enums**            | PascalCase       | `PartnerStatus`, `UserType`        |
+| **Fichiers**         | kebab-case       | `partner-controller.ts`            |
+| **Dossiers**         | kebab-case       | `user-services/`                   |
+| **Constantes**       | UPPER_SNAKE_CASE | `API_URL`, `MAX_PARTNERS`          |
 
 #### Règles de développement
 
 **TypeScript strict**
+
 ```typescript
 // tsconfig.json
 {
@@ -1157,6 +1216,7 @@ export class PartnerService {
 ```
 
 **Oxlint configuration ultra-rapide**
+
 ```json
 // oxlint.json
 {
@@ -1174,45 +1234,42 @@ export class PartnerService {
     "es2022": true
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks"],
-  "ignorePatterns": [
-    "node_modules",
-    "dist",
-    "build",
-    "*.min.js"
-  ]
+  "ignorePatterns": ["node_modules", "dist", "build", "*.min.js"]
 }
 ```
 
 ### 5.2. Workflow Git et conventions de commits
 
 #### Git Flow adapté
+
 ```mermaid
 gitgraph
     commit id: "Initial commit"
     branch develop
     checkout develop
     commit id: "Setup project"
-    
+
     branch feature/auth
     checkout feature/auth
     commit id: "Add OAuth2"
     commit id: "Add auth middleware"
     checkout develop
     merge feature/auth
-    
+
     branch feature/partners
     checkout feature/partners
     commit id: "Add partner model"
     commit id: "Add partner API"
     checkout develop
     merge feature/partners
-    
+
     checkout main
     merge develop
     commit id: "Release v1.0.0"
 ```
 
 #### Conventions de commits (Gitmoji + Conventional)
+
 ```bash
 # Nouvelle fonctionnalité
 git commit -m "✨ feat: add partner archiving endpoint"
@@ -1234,6 +1291,7 @@ git commit -m "🚀 ci: add GitHub Actions workflow"
 ```
 
 #### Hooks Git avec Husky et Commitlint
+
 ```json
 // package.json
 {
@@ -1245,13 +1303,8 @@ git commit -m "🚀 ci: add GitHub Actions workflow"
     }
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "oxlint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md}": [
-      "prettier --write"
-    ]
+    "*.{ts,tsx}": ["oxlint --fix", "prettier --write"],
+    "*.{json,md}": ["prettier --write"]
   }
 }
 ```
@@ -1259,6 +1312,7 @@ git commit -m "🚀 ci: add GitHub Actions workflow"
 #### Configuration Commitlint pour la qualité du versioning
 
 **Installation et configuration**
+
 ```bash
 # Installation des dépendances
 npm install --save-dev @commitlint/config-conventional @commitlint/cli
@@ -1269,55 +1323,63 @@ echo "module.exports = { extends: ['@commitlint/config-conventional', '@commitli
 ```
 
 **Configuration avancée - commitlint.config.js**
+
 ```javascript
 module.exports = {
   extends: ['@commitlint/config-conventional', '@commitlint/config-gitmoji'],
   rules: {
     // Type de commit obligatoire
-    'type-enum': [2, 'always', [
-      'feat',     // Nouvelle fonctionnalité
-      'fix',      // Correction de bug
-      'docs',     // Documentation
-      'style',    // Formatage, pas de changement logique
-      'refactor', // Refactoring sans ajout de fonctionnalité
-      'test',     // Ajout ou modification de tests
-      'chore',    // Maintenance (dépendances, config)
-      'ci',       // Intégration continue
-      'perf',     // Amélioration des performances
-      'revert'    // Annulation d'un commit précédent
-    ]],
-    
+    'type-enum': [
+      2,
+      'always',
+      [
+        'feat', // Nouvelle fonctionnalité
+        'fix', // Correction de bug
+        'docs', // Documentation
+        'style', // Formatage, pas de changement logique
+        'refactor', // Refactoring sans ajout de fonctionnalité
+        'test', // Ajout ou modification de tests
+        'chore', // Maintenance (dépendances, config)
+        'ci', // Intégration continue
+        'perf', // Amélioration des performances
+        'revert', // Annulation d'un commit précédent
+      ],
+    ],
+
     // Message obligatoire et limites
     'subject-min-length': [2, 'always', 10],
     'subject-max-length': [2, 'always', 100],
     'subject-case': [2, 'always', 'lower-case'],
     'subject-empty': [2, 'never'],
-    
+
     // Format du corps du message
     'body-max-line-length': [2, 'always', 100],
     'footer-max-line-length': [2, 'always', 100],
-    
+
     // Référence aux issues (optionnel)
-    'references-empty': [1, 'never']
+    'references-empty': [1, 'never'],
   },
-  
+
   // Messages d'aide personnalisés
-  helpUrl: 'https://github.com/conventional-changelog/commitlint/#what-is-commitlint',
-  
+  helpUrl:
+    'https://github.com/conventional-changelog/commitlint/#what-is-commitlint',
+
   // Gitmoji support
   parserPreset: {
     parserOpts: {
-      headerPattern: /^(?:(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])(?:\s))?(?:(\w*)(?:\((.*)\))?(?:!)?)(?::\s)(.*)$/,
-      headerCorrespondence: ['emoji', 'type', 'scope', 'subject']
-    }
-  }
+      headerPattern:
+        /^(?:(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])(?:\s))?(?:(\w*)(?:\((.*)\))?(?:!)?)(?::\s)(.*)$/,
+      headerCorrespondence: ['emoji', 'type', 'scope', 'subject'],
+    },
+  },
 }
 ```
 
 **Exemples de commits conformes**
+
 ```bash
 # ✅ Commits valides
-git commit -m "✨ feat(auth): add OAuth2 LinkedIn integration"
+git commit -m "✨ feat(auth): add user authentication system"
 git commit -m "🐛 fix(partners): resolve filtering issue with archived partners"
 git commit -m "📝 docs: update API documentation for partner endpoints"
 git commit -m "♻️ refactor(services): extract email notification service"
@@ -1331,6 +1393,7 @@ git commit -m "feat: implement a super long message that exceeds the maximum all
 ```
 
 **Intégration avec le workflow Git**
+
 ```bash
 # Script de validation locale (optionnel)
 # scripts/commit-msg-check.sh
@@ -1345,13 +1408,14 @@ echo "✅ Commit message validé"
 ```
 
 **Génération automatique de changelog**
+
 ```json
 // package.json scripts
 {
   "scripts": {
     "changelog": "conventional-changelog -p gitmoji-config -i CHANGELOG.md -s",
     "release": "standard-version --release-as patch",
-    "release:minor": "standard-version --release-as minor", 
+    "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "version": "npm run changelog && git add CHANGELOG.md"
   }
@@ -1363,12 +1427,14 @@ echo "✅ Commit message validé"
 #### Oxlint - Linter ultra-rapide
 
 **Pourquoi Oxlint ?**
+
 - **Performance exceptionnelle** : 50-100x plus rapide qu'ESLint
 - **Zero-config** : Fonctionne immédiatement sans configuration complexe
 - **Compatibilité ESLint** : Migration transparente depuis ESLint
 - **TypeScript natif** : Support complet TypeScript sans plugins
 
 **Installation et configuration**
+
 ```bash
 # Installation
 npm install --save-dev oxlint
@@ -1378,7 +1444,7 @@ npm install --save-dev oxlint
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "rules": {
     "no-unused-vars": "error",
-    "prefer-const": "error", 
+    "prefer-const": "error",
     "no-var": "error"
   },
   "env": {
@@ -1391,6 +1457,7 @@ npm install --save-dev oxlint
 ```
 
 **Scripts npm intégrés**
+
 ```json
 {
   "scripts": {
@@ -1405,6 +1472,7 @@ npm install --save-dev oxlint
 #### Prettier - Formatage du code
 
 **Configuration .prettierrc**
+
 ```json
 {
   "semi": false,
@@ -1421,6 +1489,7 @@ npm install --save-dev oxlint
 #### Intégration VS Code
 
 **Paramètres workspace (.vscode/settings.json)**
+
 ```json
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -1435,6 +1504,7 @@ npm install --save-dev oxlint
 ```
 
 **Extensions recommandées (.vscode/extensions.json)**
+
 ```json
 {
   "recommendations": [
@@ -1449,6 +1519,7 @@ npm install --save-dev oxlint
 ### 5.5. Pipeline de qualité CI/CD
 
 #### GitHub Actions Workflow
+
 ```yaml
 # .github/workflows/quality.yml
 name: Code Quality
@@ -1459,31 +1530,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-          
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Run Oxlint
         run: npm run lint:ci
-        
+
       - name: Check Prettier
         run: npm run format:check
-        
+
       - name: Validate commits
         run: npx commitlint --from=HEAD~1 --to=HEAD
-        
+
       - name: Type checking
         run: npm run type-check
-        
+
       - name: Run tests
         run: npm run test:ci
-        
+
       - name: Build check
         run: npm run build
 ```
@@ -1497,6 +1568,7 @@ jobs:
 L'API RPM-CL suit les standards **OpenAPI 3.0** pour garantir une documentation claire, interactive et facilement maintenable.
 
 #### Configuration Swagger/OpenAPI
+
 ```typescript
 // start/swagger.ts
 import { SwaggerConfig } from '@ioc:Adonis/Addons/Swagger'
@@ -1507,7 +1579,7 @@ export default {
   specEnabled: true,
   specUrl: '/swagger.json',
   middleware: ['auth'],
-  
+
   options: {
     definition: {
       openapi: '3.0.0',
@@ -1517,27 +1589,27 @@ export default {
         description: 'API de gestion des relations partenaires',
         contact: {
           name: 'Cabinet Laurent',
-          email: 'dev@cabinet-laurent.fr'
-        }
+          email: 'dev@cabinet-laurent.fr',
+        },
       },
       servers: [
         {
           url: process.env.API_URL || 'http://localhost:3333',
-          description: 'Serveur de développement'
-        }
+          description: 'Serveur de développement',
+        },
       ],
       components: {
         securitySchemes: {
           bearerAuth: {
             type: 'http',
             scheme: 'bearer',
-            bearerFormat: 'JWT'
-          }
-        }
+            bearerFormat: 'JWT',
+          },
+        },
       },
-      security: [{ bearerAuth: [] }]
-    }
-  }
+      security: [{ bearerAuth: [] }],
+    },
+  },
 } as SwaggerConfig
 ```
 
@@ -1548,6 +1620,7 @@ export default {
 ### 7.1. Modèle de données complet
 
 #### Schéma principal PostgreSQL
+
 ```sql
 -- Users et authentification
 CREATE TABLE users (
@@ -1556,9 +1629,6 @@ CREATE TABLE users (
     password_hash VARCHAR(255),
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL,
-    role user_role NOT NULL DEFAULT 'COLLABORATOR',
-    linkedin_id VARCHAR(100) UNIQUE,
-    avatar_url TEXT,
     is_active BOOLEAN DEFAULT true,
     last_login_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -1580,7 +1650,6 @@ CREATE TABLE partners (
     is_archived BOOLEAN DEFAULT false,
     archived_at TIMESTAMP,
     archive_reason TEXT,
-    linkedin_url TEXT,
     website_url TEXT,
     address_encrypted TEXT,
     created_by_id UUID REFERENCES users(id),
@@ -1599,6 +1668,7 @@ CREATE TABLE partners (
 La stratégie de tests RPM-CL intègre **Oxlint** pour l'analyse statique ultra-rapide et **Commitlint** pour la qualité du versioning.
 
 #### Outils de qualité intégrés :
+
 ```mermaid
 graph TB
     subgraph "Analyse Statique"
@@ -1606,25 +1676,26 @@ graph TB
         B[TypeScript - Vérification de types]
         C[Prettier - Formatage]
     end
-    
-    subgraph "Tests Automatisés" 
+
+    subgraph "Tests Automatisés"
         D[Jest - Tests unitaires]
         E[Playwright - Tests E2E]
         F[Storybook - Tests visuels]
     end
-    
+
     subgraph "Qualité Git"
         G[Commitlint - Conventions commits]
         H[Husky - Hooks Git]
         I[Lint-staged - Validation pre-commit]
     end
-    
+
     A --> D
     G --> H
     H --> I
 ```
 
 #### Configuration de la pipeline de qualité
+
 ```json
 // package.json
 {
@@ -1646,6 +1717,7 @@ graph TB
 ### 8.2. Métriques de qualité et seuils
 
 #### Seuils de couverture stricts
+
 ```javascript
 // jest.config.js
 export default {
@@ -1654,26 +1726,21 @@ export default {
       branches: 85,
       functions: 90,
       lines: 90,
-      statements: 90
+      statements: 90,
     },
     // Modules critiques - seuils plus élevés
     'src/features/auth/**/*.ts': {
       branches: 95,
       functions: 100,
       lines: 95,
-      statements: 95
+      statements: 95,
     },
-    'src/shared/services/security/**/*.ts': {
-      branches: 100,
-      functions: 100, 
-      lines: 100,
-      statements: 100
-    }
-  }
+  },
 }
 ```
 
 #### Monitoring qualité en continu
+
 ```yaml
 # .github/workflows/quality-monitoring.yml
 - name: Quality Gate
@@ -1714,23 +1781,27 @@ Le déploiement RPM-CL utilise une approche **GitOps** avec validation qualité 
 ## Résumé des modifications apportées
 
 ### 🔄 Migration ESLint → Oxlint
+
 - **Remplacement complet** d'ESLint par Oxlint pour un linting ultra-rapide
 - **Configuration moderne** avec support TypeScript natif
 - **Intégration CI/CD** optimisée pour la performance
 
 ### ✅ Intégration Commitlint
+
 - **Configuration complète** avec support Gitmoji et Conventional Commits
 - **Validation automatique** des messages de commit
 - **Génération de changelog** automatisée
 - **Hooks Git** pour validation en temps réel
 
 ### 📊 Pipeline de qualité renforcée
+
 - **Oxlint + Prettier + TypeScript** pour l'analyse statique
 - **Commitlint + Husky** pour la qualité Git
 - **Métriques de couverture** strictes avec seuils différenciés
 - **Monitoring continu** en CI/CD
 
 ### 🚀 Performance et maintenabilité
+
 - **Linting 50-100x plus rapide** avec Oxlint
 - **Zero-config** pour une mise en place simplifiée
 - **Compatibilité totale** avec l'écosystème ESLint existant

@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🚀 Validation avant push..."
+
+# Vérifier que tous les tests passent
+echo "🧪 Exécution des tests..."
+pnpm run test
+
+# Vérifier la construction du projet
+echo "📦 Vérification du build..."
+pnpm run build
+
+# Vérifier l'historique des commits
+echo "📝 Validation de l'historique des commits..."
+pnpx commitlint --from=origin/main --to=HEAD
+
+echo "✅ Prêt pour le push!"

@@ -1,24 +1,39 @@
 {
-  "name": "rpm-cl",
+  "name": "relational-partner-manager-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Tests not configured yet\" && exit 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "commit": "gitmoji -c",
+    "commitlint": "commitlint --edit",
+    "validate-commits": "commitlint --from=HEAD~1 --to=HEAD --verbose",
+    "prepare": "husky"
   },
   "dependencies": {
+    "next": "15.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.4"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "gitmoji-cli": "^9.7.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

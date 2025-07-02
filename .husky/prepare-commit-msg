@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Ajouter un template de commit si le message est vide
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+# Ne pas modifier les messages de commit qui proviennent d'un merge, squash, etc.
+if [ -n "$COMMIT_SOURCE" ]; then
+  exit 0
+fi
+
+# Ajouter un template si le message est vide
+if [ ! -s "$COMMIT_MSG_FILE" ]; then
+  cat > "$COMMIT_MSG_FILE" << 'EOF'
+# Utilisez le format: type(scope): description
+#
+# Types disponibles:
+# feat:     ✨ nouvelle fonctionnalité
+# fix:      🐛 correction de bug  
+# docs:     📝 documentation
+# style:    🎨 formatage, style
+# refactor: ♻️ refactoring
+# perf:     ⚡ performance
+# test:     ✅ tests
+# chore:    🔧 maintenance
+# ci:       🚀 CI/CD
+# build:    📦 build
+# security: 🔒 sécurité
+# config:   ⚙️ configuration
+#
+# Scopes suggérés pour RPM-CL:
+# auth, partners, users, classifications, notifications,
+# stats, api, ui, config, database, security, tests, docs
+#
+# Exemple: feat(auth): add OAuth2 LinkedIn integration
+EOF
+fi
