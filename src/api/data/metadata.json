@@ -1,0 +1,114 @@
+{
+  "professions": [
+    {
+      "id": "avocat_affaires",
+      "label": "Avocat d'affaires",
+      "category": "legal",
+      "description": "Spécialisé en droit des affaires et commercial"
+    },
+    {
+      "id": "fiscaliste",
+      "label": "Fiscaliste",
+      "category": "legal",
+      "description": "Expert en droit fiscal et optimisation"
+    },
+    {
+      "id": "notaire",
+      "label": "Notaire",
+      "category": "legal",
+      "description": "Officier public pour les actes authentiques"
+    },
+    {
+      "id": "huissier",
+      "label": "Huissier de justice",
+      "category": "legal",
+      "description": "Exécution des décisions de justice"
+    },
+    {
+      "id": "expert_comptable",
+      "label": "Expert-comptable",
+      "category": "finance",
+      "description": "Gestion comptable et fiscale"
+    },
+    {
+      "id": "banque",
+      "label": "Banque",
+      "category": "finance",
+      "description": "Services bancaires et financiers"
+    },
+    {
+      "id": "assureur",
+      "label": "Assureur",
+      "category": "insurance",
+      "description": "Couverture des risques"
+    },
+    {
+      "id": "cabinet_recrutement",
+      "label": "Cabinet de recrutement",
+      "category": "hr",
+      "description": "Recrutement et ressources humaines"
+    }
+  ],
+  "statuses": [
+    {
+      "id": "active",
+      "label": "Actif",
+      "color": "green",
+      "description": "Partenaire actif et disponible"
+    },
+    {
+      "id": "archived",
+      "label": "Archivé",
+      "color": "gray",
+      "description": "Partenaire archivé, non actif"
+    },
+    {
+      "id": "blacklisted",
+      "label": "Liste noire",
+      "color": "red",
+      "description": "Partenaire à éviter"
+    }
+  ],
+  "classifications": [
+    {
+      "id": "legal",
+      "label": "Juridique",
+      "description": "Services juridiques et légaux"
+    },
+    {
+      "id": "finance",
+      "label": "Finance",
+      "description": "Services financiers et comptables"
+    },
+    {
+      "id": "insurance",
+      "label": "Assurance",
+      "description": "Couverture des risques"
+    },
+    {
+      "id": "hr",
+      "label": "Ressources Humaines",
+      "description": "Recrutement et gestion RH"
+    },
+    {
+      "id": "healthcare",
+      "label": "Santé",
+      "description": "Services de santé"
+    },
+    {
+      "id": "real-estate",
+      "label": "Immobilier",
+      "description": "Transactions immobilières"
+    },
+    {
+      "id": "business",
+      "label": "Business",
+      "description": "Conseil en affaires"
+    },
+    {
+      "id": "specialist",
+      "label": "Spécialiste",
+      "description": "Expertise spécialisée"
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+/**
+ * Tests pour les utilitaires API et données simulées
+ */
+
+import { 
+  fetchPartners, 
+  fetchPartnerById, 
+  createPartner, 
+  updatePartner, 
+  deletePartner,
+  buildApiUrl,
+  MOCK_PARTNERS 
+} from '../api'
+import { PARTNER_STATUS, PROFESSIONS } from '../constants'
+
+describe('API Utils', () => {
+  describe('MOCK_PARTNERS', () => {
+    it('devrait avoir des données valides', () => {
+      expect(MOCK_PARTNERS).toHaveLength(5)
+      
+      MOCK_PARTNERS.forEach(partner => {
+        expect(partner.id).toBeTruthy()
+        expect(partner.firstName).toBeTruthy()
+        expect(partner.lastName).toBeTruthy()
+        expect(partner.email).toMatch(/\S+@\S+\.\S+/)
+        expect(partner.phone).toBeTruthy()
+        expect(partner.company).toBeTruthy()
+        expect(partner.profession).toBeTruthy()
+        expect(partner.rating).toBeGreaterThanOrEqual(1)
+        expect(partner.rating).toBeLessThanOrEqual(5)
+        expect(Object.values(PARTNER_STATUS)).toContain(partner.status)
+        expect(Array.isArray(partner.classifications)).toBe(true)
+        expect(partner.createdAt).toBeTruthy()
+        expect(partner.updatedAt).toBeTruthy()
+      })
+    })
+
+    it('devrait utiliser des professions valides', () => {
+      const validProfessions = Object.values(PROFESSIONS)
+      
+      MOCK_PARTNERS.forEach(partner => {
+        expect(validProfessions).toContain(partner.profession)
+      })
+    })
+  })
+
+  describe('fetchPartners', () => {
+    it('devrait retourner des partenaires paginés', async () => {
+      const result = await fetchPartners({ page: 1, limit: 3 })
+      
+      expect(result.success).toBe(true)
+      expect(result.data.data).toHaveLength(3)
+      expect(result.data.pagination.currentPage).toBe(1)
+      expect(result.data.pagination.totalItems).toBe(5)
+      expect(result.data.pagination.totalPages).toBe(2)
+    })
+
+    it('devrait filtrer par recherche', async () => {
+      const result = await fetchPartners(
+        { page: 1, limit: 10 },
+        { search: 'Marie' }
+      )
+      
+      expect(result.success).toBe(true)
+      expect(result.data.data).toHaveLength(1)
+      expect(result.data.data[0]?.firstName).toBe('Marie')
+    })
+
+    it('devrait filtrer par statut', async () => {
+      const result = await fetchPartners(
+        { page: 1, limit: 10 },
+        { status: PARTNER_STATUS.ARCHIVED }
+      )
+      
+      expect(result.success).toBe(true)
+      expect(result.data.data).toHaveLength(1)
+      expect(result.data.data[0]?.status).toBe(PARTNER_STATUS.ARCHIVED)
+    })
+  })
+
+  describe('fetchPartnerById', () => {
+    it('devrait retourner un partenaire existant', async () => {
+      const result = await fetchPartnerById('1')
+      
+      expect(result.success).toBe(true)
+      expect(result.data?.id).toBe('1')
+      expect(result.data?.firstName).toBe('Marie')
+    })
+
+    it('devrait retourner null pour un ID inexistant', async () => {
+      const result = await fetchPartnerById('999')
+      
+      expect(result.success).toBe(false)
+      expect(result.data).toBe(null)
+    })
+  })
+
+  describe('createPartner', () => {
+    it('devrait créer un nouveau partenaire', async () => {
+      const newPartnerData = {
+        firstName: 'Test',
+        lastName: 'User',
+        email: 'test@example.com',
+        phone: '01 23 45 67 89',
+        company: 'Test Company',
+        profession: PROFESSIONS.FISCALISTE,
+        rating: 3 as const,
+        status: PARTNER_STATUS.ACTIVE,
+        notes: 'Test partner',
+        classifications: ['test'] as const,
+      }
+
+      const result = await createPartner(newPartnerData)
+      
+      expect(result.success).toBe(true)
+      expect(result.data.firstName).toBe('Test')
+      expect(result.data.id).toBeTruthy()
+      expect(result.data.createdAt).toBeTruthy()
+      expect(result.data.updatedAt).toBeTruthy()
+    })
+  })
+
+  describe('updatePartner', () => {
+    it('devrait mettre à jour un partenaire existant', async () => {
+      const updates = { notes: 'Updated notes' }
+      const result = await updatePartner('1', updates)
+      
+      expect(result.success).toBe(true)
+      expect(result.data?.notes).toBe('Updated notes')
+      expect(result.data?.id).toBe('1')
+    })
+
+    it('devrait échouer pour un ID inexistant', async () => {
+      const updates = { notes: 'Updated notes' }
+      const result = await updatePartner('999', updates)
+      
+      expect(result.success).toBe(false)
+      expect(result.data).toBe(null)
+    })
+  })
+
+  describe('deletePartner', () => {
+    it('devrait supprimer un partenaire existant', async () => {
+      const result = await deletePartner('1')
+      
+      expect(result.success).toBe(true)
+      expect(result.data).toBe(true)
+    })
+
+    it('devrait échouer pour un ID inexistant', async () => {
+      const result = await deletePartner('999')
+      
+      expect(result.success).toBe(false)
+      expect(result.data).toBe(false)
+    })
+  })
+
+  describe('buildApiUrl', () => {
+    it('devrait construire une URL simple', () => {
+      const url = buildApiUrl('/partners')
+      expect(url).toBe('http://localhost:3000/api/partners')
+    })
+
+    it('devrait construire une URL avec paramètres', () => {
+      const url = buildApiUrl('/partners', { page: 1, limit: 10 })
+      expect(url).toContain('page=1')
+      expect(url).toContain('limit=10')
+    })
+
+    it('devrait utiliser la variable d\'environnement si définie', () => {
+      const originalEnv = process.env['NEXT_PUBLIC_API_BASE_URL']
+      process.env['NEXT_PUBLIC_API_BASE_URL'] = 'https://api.example.com'
+      
+      const url = buildApiUrl('/partners')
+      expect(url).toBe('https://api.example.com/partners')
+      
+      // Restaurer l'environnement
+      process.env['NEXT_PUBLIC_API_BASE_URL'] = originalEnv
+    })
+  })
+})

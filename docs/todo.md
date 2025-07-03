@@ -5,4 +5,28 @@
 - [x] Oxlint
 - [x] Prettier
 - [x] Tailwind CSS
-- [x] Docker Docker
+- [x] Docker
+- [x] Jest
+- [x] Playwright
+  - [x] Configuration Playwright complète
+  - [x] Configuration Playwright simplifiée
+  - [x] Tests E2E de base robustes
+  - [x] Tests d'accessibilité
+  - [x] Tests de performance
+  - [x] Tests de configuration
+  - [x] Scripts npm pour Playwright
+  - [x] Documentation complète
+  - [x] Script de validation
+  - [ ] Tests E2E pour les features spécifiques (à ajouter selon les besoins)
+  - [ ] Intégration CI/CD GitHub Actions
+- [x] TypeScript
+  - [x] Options TypeScript ultra-strictes
+  - [x] Types globaux stricts
+  - [x] Types par feature
+  - [x] Utilitaires typés
+  - [x] Tests unitaires pour les types
+  - [x] Exemples d'utilisation
+  - [x] Exclusion des tests E2E de la vérification stricte
+- [x] Données de tests
+  - [x] Données de partenaires simulées
+  - [x] Métadonnées des partenaires simulées
