@@ -1,0 +1,113 @@
+# Dépendances
+node_modules
+npm-debug.log*
+pnpm-debug.log*
+.pnpm-store
+
+# Build de Next.js
+.next/
+out/
+build/
+
+# Fichiers de production
+.vercel
+
+# Fichiers d'environnement
+.env*.local
+.env
+
+# Logs
+*.log
+
+# Fichiers d'exécution
+*.pid
+*.seed
+*.pid.lock
+
+# Répertoire de couverture généré par les outils
+coverage/
+
+# Répertoire de dépendances nyc test coverage
+.nyc_output
+
+# Stockage intermédiaire de Grunt (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Répertoire de dépendances Bower (https://bower.io/)
+bower_components
+
+# Configuration node-waf
+.lock-wscript
+
+# Addons binaires compilés (https://nodejs.org/api/addons.html)
+build/Release
+
+# Répertoires de dépendances
+jspm_packages/
+
+# Fichiers de déclaration TypeScript v1
+typings/
+
+# Cache de Parcel-bundler (https://parceljs.org/)
+.parcel-cache
+.cache
+
+# Cache de microbundle
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Cache de Storybook build (https://storybook.js.org/)
+.storybook-out
+
+# Fichiers temporaires d'eslint
+.eslintcache
+
+# Cache de Prettier
+.prettiercache
+
+# Répertoire temporaire de Microbundle
+.rts2_cache_*
+
+# Fichiers de système d'exploitation
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git
+.gitignore
+README.md
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Documentation
+docs/
+
+# Scripts
+scripts/
+
+# Fichiers de configuration de l'éditeur
+.editorconfig
+
+# Autres
+*.tsbuildinfo

@@ -18,7 +18,19 @@
     "commit:test": "./scripts/test-commit-format.sh",
     "commitlint": "commitlint --edit",
     "validate-commits": "commitlint --from=HEAD~1 --to=HEAD --verbose",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:help": "./scripts/docker-help.sh",
+    "docker:setup": "./scripts/setup-docker.sh",
+    "docker:build": "./scripts/docker-help.sh build",
+    "docker:build-dev": "./scripts/docker-help.sh build-dev",
+    "docker:run": "./scripts/docker-help.sh run",
+    "docker:dev": "./scripts/docker-help.sh dev",
+    "docker:stop": "./scripts/docker-help.sh stop",
+    "docker:clean": "./scripts/docker-help.sh clean",
+    "docker:logs": "./scripts/docker-help.sh logs",
+    "docker:shell": "./scripts/docker-help.sh shell",
+    "docker:security": "./scripts/docker-security-check.sh",
+    "docker:test": "./scripts/docker-test.sh"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

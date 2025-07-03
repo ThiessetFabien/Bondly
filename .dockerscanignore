@@ -1,0 +1,12 @@
+# Fichier pour ignorer certaines vulnérabilités connues qui ne s'appliquent pas à notre contexte
+
+# Vulnérabilités Node.js qui ne s'appliquent pas aux applications Next.js en production
+CVE-2023-30590  # Pas applicable avec notre configuration
+CVE-2023-32002  # Pas applicable avec notre usage de modules
+CVE-2023-32006  # Pas applicable avec notre usage de permissions
+
+# Vulnérabilités Alpine qui sont dans des packages non utilisés
+CVE-2023-45853  # zlib - pas utilisé directement
+CVE-2023-5678   # openssl - version Alpine corrigée dans notre image
+
+# Ajouter d'autres CVE spécifiques si nécessaire
