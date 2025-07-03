@@ -1,13 +1,13 @@
 ## 1. Configuration
 
-- [x] Next.js
-- [x] Commitlint
-- [x] Oxlint
-- [x] Prettier
-- [x] Tailwind CSS
-- [x] Docker
-- [x] Jest
-- [x] Playwright
+- [x] **Next.js**
+- [x] **Commitlint**
+- [x] **Oxlint**
+- [x] **Prettier**
+- [x] **Tailwind CSS**
+- [x] **Docker**
+- [x] **Jest**
+- [x] **Playwright**
   - [x] Configuration Playwright complète
   - [x] Configuration Playwright simplifiée
   - [x] Tests E2E de base robustes
@@ -19,7 +19,7 @@
   - [x] Script de validation
   - [ ] Tests E2E pour les features spécifiques (à ajouter selon les besoins)
   - [ ] Intégration CI/CD GitHub Actions
-- [x] TypeScript
+- [x] **TypeScript**
   - [x] Options TypeScript ultra-strictes
   - [x] Types globaux stricts
   - [x] Types par feature
@@ -27,6 +27,9 @@
   - [x] Tests unitaires pour les types
   - [x] Exemples d'utilisation
   - [x] Exclusion des tests E2E de la vérification stricte
-- [x] Données de tests
-  - [x] Données de partenaires simulées
-  - [x] Métadonnées des partenaires simulées
+  - [x] Ajout des guards TypeScript dans tous les tests
+- [x] **API Test Partenaires**
+  - [x] Création API JSON simulée (`partners-json.ts`)
+  - [x] Migration de tous les tests vers l'API JSON
+  - [x] Correction des types et guards TypeScript
+  - [x] Suppression des fichiers obsolètes (`partners.ts`)
