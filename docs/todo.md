@@ -33,3 +33,57 @@
   - [x] Migration de tous les tests vers l'API JSON
   - [x] Correction des types et guards TypeScript
   - [x] Suppression des fichiers obsolètes (`partners.ts`)
+- [x] **Redux**
+  - [x] Installation de Redux Toolkit et React Redux
+  - [x] Configuration du store Redux principal
+  - [x] Slice Classifications avec gestion d'état et API async
+  - [x] Slice UI pour l'état de la sidebar et autres composants
+  - [x] Hooks typés (useAppDispatch, useAppSelector)
+  - [x] Provider Redux intégré dans le layout
+  - [x] Migration de la sidebar vers Redux (sans props)
+  - [x] Sélecteurs pour état filtré et recherche
+  - [x] Actions et reducers pour gestion des classifications
+  - [x] Gestion d'état centralisée et performances optimisées
+- [x] **Interface Moderne avec Shadcn/UI**
+  - [x] Simplification du Header avec thème shadcn cohérent
+  - [x] Remplacement des composants custom par composants shadcn
+  - [x] Installation et utilisation du composant Card
+  - [x] Installation et utilisation du composant Badge
+  - [x] Création de StatsCard réutilisable avec shadcn
+  - [x] Composant PageContainer pour layout consistant
+  - [x] Composant PageSection pour organisation du contenu
+  - [x] Migration vers les variables CSS shadcn (foreground, muted-foreground, etc.)
+  - [x] Interface plus clean et maintenable
+  - [x] Thème cohérent dans toute l'application
+- [x] **Configuration Next.js**
+  - [x] Migration de experimental.turbo vers turbopack (stable)
+  - [x] Suppression des avertissements de dépréciation
+  - [x] Configuration Turbopack optimisée
+
+## 2. Dashboard
+
+- [x] **Sidebar Moderne**
+  - [x] Installation du composant sidebar shadcn moderne
+  - [x] Adaptation pour afficher les classifications depuis l'API
+  - [x] Configuration collapse/expand avec textes au hover
+  - [x] Thème sombre cohérent avec l'application
+  - [x] Barre de recherche intégrée pour filtrer les classifications
+  - [x] Tooltips informatifs en mode collapsé
+  - [x] Animations fluides et transitions
+  - [x] Section liens rapides pour accès direct (paramètres, logout, etc.)
+  - [x] Conversion complète vers DaisyUI
+  - [x] Correction bugs graphiques menu burger mobile/tablette
+  - [x] Correction bugs graphiques sidebar desktop
+  - [x] Structure drawer simplifiée et optimisée
+  - [x] Responsive design amélioré avec marges adaptatives
+  - [x] Design néobrutalisme inclusif et accessible
+  - [x] Bordures épaisses et contrastées pour meilleure visibilité
+  - [x] Ombres géométriques pour hiérarchie visuelle claire
+  - [x] Icône de recherche visible en mode compact
+  - [x] Animations optimisées et respectueuses de l'accessibilité
+  - [x] Couleurs contrastées pour conformité WCAG
+  - [x] Design glassmorphisme 3D professionnel
+  - [x] Effets backdrop-blur et transparences élégantes
+  - [x] Ombres volumétriques pour profondeur 3D
+  - [x] Animations fluides avec micro-interactions
+  - [x] Menu burger glassmorphisme avec transitions

@@ -7,4 +7,8 @@ pnpx lint-staged
 echo "🔍 Vérification TypeScript..."
 pnpm run type-check
 
+# Analyse rapide du code mort sur les fichiers modifiés
+echo "🔍 Analyse rapide du code mort..."
+pnpm run lint:dead-code
+
 echo "✅ Validation terminée!"

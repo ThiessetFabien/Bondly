@@ -1,0 +1,84 @@
+name: Code Quality Analysis
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # Analyse hebdomadaire le dimanche à 2h du matin
+    - cron: '0 2 * * 0'
+
+jobs:
+  dead-code-analysis:
+    name: Dead Code Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run TypeScript check
+        run: pnpm run type-check
+
+      - name: Run linting with oxlint
+        run: pnpm run lint
+        continue-on-error: true
+
+      - name: Run dead code analysis
+        run: pnpm run analyze:full
+        continue-on-error: true
+
+      - name: Upload dead code analysis report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dead-code-analysis-report
+          path: dead-code-analysis.json
+          retention-days: 30
+
+      - name: Comment PR with analysis results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            try {
+              const report = JSON.parse(fs.readFileSync('dead-code-analysis.json', 'utf8'));
+              const { totalIssues, categories } = report.summary;
+              
+              let comment = `## 🔍 Analyse du Code Mort\n\n`;
+              comment += `📊 **Résumé:** ${totalIssues} problème(s) détecté(s)\n\n`;
+              comment += `| Catégorie | Nombre |\n`;
+              comment += `|-----------|--------|\n`;
+              comment += `| Code mort | ${categories.deadCode} |\n`;
+              comment += `| Dépendances inutilisées | ${categories.unusedDependencies} |\n`;
+              comment += `| Exports inutilisés | ${categories.unusedExports} |\n\n`;
+              
+              if (totalIssues === 0) {
+                comment += `✅ **Aucun code mort détecté !** Votre code est propre.`;
+              } else {
+                comment += `⚠️  **Code mort détecté.** Veuillez consulter le rapport détaillé.`;
+              }
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } catch (error) {
+              console.log('Impossible de lire le rapport d\'analyse:', error);
+            }

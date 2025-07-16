@@ -507,8 +507,7 @@ frontend/
 ```tsx
 import { type FC } from 'react'
 import { Phone, Mail, Star, Archive, AlertTriangle } from 'lucide-react'
-import { Button } from '@/shared/components/ui/Button'
-import { Badge } from '@/shared/components/ui/Badge'
+import { Button } from '@/components/ui/button'
 import { type Partner } from '../types'
 
 interface PartnerCardProps {

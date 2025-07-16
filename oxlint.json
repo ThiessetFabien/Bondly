@@ -4,15 +4,40 @@
     "suspicious": "error",
     "perf": "warn",
     "style": "warn",
-    "pedantic": "off",
+    "pedantic": "warn",
     "restriction": "off",
-    "nursery": "off"
+    "nursery": "warn"
   },
   "rules": {
+    // Variables et imports inutilisés
     "typescript/no-unused-vars": "error",
+    "typescript/no-unused-expressions": "error",
+    "typescript/no-unused-labels": "error",
+    "eslint/no-unused-vars": "error",
+    "eslint/no-unused-expressions": "error",
+    "eslint/no-unused-labels": "error",
+    "eslint/no-unreachable": "error",
+    "eslint/no-dead-code": "error",
+
+    // Imports et exports
+    "import/no-unused-modules": "error",
+    "import/no-unresolved": "error",
+    "import/no-duplicates": "error",
+    "import/first": "error",
+    "import/no-self-import": "error",
+    "import/no-cycle": "error",
+    "import/no-useless-path-segments": "error",
+
+    // TypeScript amélioré
     "typescript/no-explicit-any": "warn",
     "typescript/prefer-nullish-coalescing": "warn",
     "typescript/prefer-optional-chain": "warn",
+    "typescript/no-empty-interface": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "typescript/no-non-null-assertion": "warn",
+    "typescript/no-inferrable-types": "warn",
+
+    // React amélioré
     "react/jsx-no-duplicate-props": "error",
     "react/jsx-no-undef": "error",
     "react/jsx-uses-react": "off",
@@ -20,10 +45,26 @@
     "react/no-deprecated": "warn",
     "react/no-unescaped-entities": "warn",
     "react/react-in-jsx-scope": "off",
+    "react/jsx-no-useless-fragment": "error",
+    "react/jsx-no-leaked-render": "error",
+    "react/no-unused-prop-types": "error",
+    "react/no-unused-state": "error",
+
+    // React Hooks
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
+
+    // Unicorn pour le code mort
+    "unicorn/no-useless-undefined": "error",
+    "unicorn/no-useless-promise-resolve-reject": "error",
+    "unicorn/no-useless-fallback-in-spread": "error",
+    "unicorn/no-useless-length-check": "error",
+    "unicorn/no-useless-spread": "error",
+    "unicorn/no-useless-switch-case": "error",
     "unicorn/filename-case": "off",
     "unicorn/prevent-abbreviations": "off",
+
+    // Général
     "import/no-default-export": "off",
     "nextjs/no-html-link-for-pages": "error",
     "nextjs/no-img-element": "warn"
