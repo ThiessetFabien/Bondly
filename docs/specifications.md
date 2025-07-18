@@ -47,7 +47,7 @@ L’outil doit permettre de :
 - Interface épurée, professionnelle, avec une navigation intuitive
 - Respect des standards d’accessibilité (contrastes, navigation clavier, textes alternatifs)
 - Conformité RGPD, chiffrement des données sensibles, gestion des accès par rôles, audit des accès et modifications
-- Gestion des accès : authentification forte (OAuth2 via LinkedIn), gestion des sessions, possibilité d’intégration SSO
+- Gestion des accès : Pour le MVP, utilisation d'un système d'authentification email/mot de passe ; gestion des sessions. La possibilité d’intégration SSO (notamment via LinkedIn) sera envisagée dans une version ultérieure.
 - Organisation des contacts par métiers, sous-métiers et autres classifications
 - Système de notation des partenaires (1 à 5 étoiles), top list et black list
 - Historique des recommandations et des mises en relation (clients envoyés/reçus)
@@ -63,13 +63,15 @@ L’outil doit permettre de :
 
 - Gestion des fiches partenaires : création, modification, archivage, classement par catégories et sous-catégories
   - Avocats d’affaires, Fiscalistes, Spécialistes en droit du travail, huissier de justice, banques, compagnies d’affacturage, assureurs, cabinet de gestion de patrimoire, experts en gestion de paie & RH, cabinet de recrutement, notaire
-- Champs principaux : nom, prénom, téléphone, email, entreprise, métier/sous-catégorie, commentaires, historique de mises en relation, notation (5 étoiles, blacklist),
+- Champs principaux : nom, prénom, téléphone, email, entreprise, métier/sous-catégorie, commentaires, historique de mises en relation, notation (5 étoiles, blacklist), origine de la connaissance du partenaire, nombre de clients en relation (statistique)
 - Liens directs téléphone/email
 - Recherche et filtres avancés par métier puis par besoin (nom, prénom, sous-catégorie, relation, notation, blacklist…)
+  - Possibilité de classer la liste des partenaires selon la notation (croissant/décroissant)
 - Système de tri croissant, décroissant des filtres
 - Suivi des recommandations (clients envoyés/reçus)
 - Actions rapides : appel, email
 - Interface mobile optimisée pour la saisie rapide
+  - Affichage du nombre de relations plutôt que les relations elles-mêmes
 - Sécurité et conformité RGPD
 
 ### III.2. Détails du MVP
@@ -81,7 +83,9 @@ L’outil doit permettre de :
 | 3      | Connexion/Déconnexion                          | → Accès sécurisé à ses données<br>→ Récupération de passphrase<br>→ Liens vers la page d’inscription                                                                                                                                 |
 | 4      | Partenaire                                     | → Lire, créer, modifier, archiver, blacklister, annoter, noter<br>→ Actions rapides (appel, mailing)<br>→ Lister, créer, modifier, archiver les relations internes                                                                   |
 | 5      | Nos partenaires                                | → Créer, modifier un partenaire<br>→ Rechercher/lister, tri croissant/décroissant, filtrer (métier, sous-métier, partenaire avec son réseau interne au cabinet, archive, blacklisting)<br>→ Action groupée (archivage, blacklisting) |
+|        |                                                | → Affichage du nom du partenaire, de son métier et sous-métier<br>→ Possibilité de visualiser les commentaires via une pop-up                                                                                                        |
 | 6      | Mon compte                                     | → Notifications en temps réel (mail, in-app)<br>→ Mode light/dark(défaut)/système<br>→ Préférences tableau partenaires                                                                                                               |
+|        |                                                | → Mode Light and Dark selon le principe d'éco-conception (utilisation de polices natives)                                                                                                                                            |
 | 7      | Nos classifications (métier, sous-métier, tag) | → Créer, Modifier, Archiver une classification/métier/sous-métier                                                                                                                                                                    |
 | 8      | Contact                                        | → Contacter les développeur                                                                                                                                                                                                          |
 | 9      | Police de confidentialité                      | → Consultation <br>→ RGPD                                                                                                                                                                                                            |
@@ -97,6 +101,10 @@ L’outil doit permettre de :
   - Top/flop/dernières notations
   - Plus/moins actifs en interne
   - Plus grand/petit réseau interne
+  - Historiques des modifications
+  - Plus gros réseaux internes
+  - Top/flop réseau
+  - Un système de rappel pour les cadeaux de remerciement aux partenaires (ex: notifications/rappels pour envoyer un cadeau dans les 30 jours suivant un apport d'affaires ou de nouveaux partenaires)
 - Restriction d’accès, gestion des droits utilisateurs (admin/consultation/collaboration), choix du rôle sur invitation
 - IA pour suggestions et traitement des notes
 - Remplissage des fiches partenaires via Linkedin, OCR, signatures email (à terme)
@@ -372,21 +380,19 @@ const ecoMetrics = {
 - Design simple, épuré, professionnel, respectant la charte graphique (à définir en juillet)
 - Expérience mobile first optimisée pour la saisie rapide
 
-### V.1. Charte graphique
+* Design simple, épuré, professionnel, respectant la charte graphique (à définir en juillet)
+* Expérience mobile first optimisée pour la saisie rapide
+* +### V.4 Choix d'Interface Utilisateur (MVP)
+* +- L'interface privilégiera une sidebar latérale repliable pour la navigation principale, avec une adaptation mobile incluant un menu burger.
+  +- L'affichage des partenaires se fera sous forme de liste avec des informations condensées (nom, métier, sous-métier).
+  +- La visualisation des commentaires sera possible via une pop-up.
+  +- L'affichage se concentrera sur le nombre de relations plutôt que sur le détail des relations elles-mêmes.
+  +- Un système de notation à 5 étoiles sera implémenté spécifiquement pour les partenaires (et non pour les relations).
+  +- Le tableau de bord (dashboard) affichera 3-4 statistiques principales et permettra des actions rapides (ajouter, modifier, archiver).
+  +- L'interface mobile sera optimisée en format répertoire avec des actions rapides (appel direct, envoi d'email, notation) et une intégration directe avec l'application téléphonique.
+  +- L'application supportera un mode clair et un mode sombre (Light and Dark).
 
-**A definir en juillet 2025**
-
-### V.2. Logo
-
-**A definir en juillet 2025**
-
-### V.3. Gestion UX des notifications d’erreur
-
-- Les messages d’erreur doivent être clairs, non techniques, et affichés de façon non intrusive (toast, alert, inline).
-- Chaque action utilisateur doit fournir un feedback visuel en cas d’échec (ex : champ en erreur, message contextuel).
-- Les erreurs critiques doivent être loguées côté backend et une notification adaptée doit être affichée côté frontend.
-
----
+  ---
 
 ## VI. Contraintes & points d’attention
 
