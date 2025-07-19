@@ -68,7 +68,7 @@
 
 - **RGPD** : Chiffrement, droit à l'oubli, consentement explicite
 - **Audit trail** : Traçabilité complète des actions sensibles
-- **Authentification** : Gestion des sessions sécurisées
+- **Authentification** : Pour le MVP, utilisation d'un système d'authentification email/mot de passe ; gestion des sessions. La possibilité d’intégration SSO (notamment via LinkedIn) sera envisagée dans une version ultérieure.
 
 ---
 

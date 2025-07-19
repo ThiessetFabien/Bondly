@@ -87,3 +87,18 @@
   - [x] Ombres volumétriques pour profondeur 3D
   - [x] Animations fluides avec micro-interactions
   - [x] Menu burger glassmorphisme avec transitions
+
+## 3. Prochaines actions - Feature Partners (Dashboard)
+
+- [ ] Afficher tous les partenaires sur la page principale (dashboard)
+  - [ ] Créer un composant `PartnerList` réutilisable
+  - [ ] Intégrer la récupération des partenaires via l'API (mock ou réelle)
+  - [ ] Afficher les informations principales : nom, métier, sous-métier, notation, nombre de relations
+  - [ ] Ajouter la visualisation des commentaires via pop-up
+  - [ ] Ajouter le tri par notation (croissant/décroissant)
+  - [ ] Ajouter la recherche et les filtres avancés (métier, sous-métier, statut, etc.)
+  - [ ] Optimiser le responsive et l'accessibilité (WCAG)
+  - [ ] Intégrer les actions rapides (appel, email, archiver, noter)
+  - [ ] Gérer le mode Light/Dark et l'éco-conception
+  - [ ] Ajouter des tests unitaires et E2E pour la liste des partenaires
+  - [ ] Mettre à jour la documentation technique et utilisateur
