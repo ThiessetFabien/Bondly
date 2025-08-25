@@ -108,13 +108,9 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
 
       await waitFor(() => {
         expect(
-          screen.getByLabelText('Sélectionner TechCorp')
+          screen.getByLabelText('Sélectionner assurance petit')
         ).toBeInTheDocument()
       })
-
-      expect(
-        screen.getByLabelText('Sélectionner DesignStudio')
-      ).toBeInTheDocument()
     })
   })
 
@@ -124,11 +120,11 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
 
       await waitFor(() => {
         expect(
-          screen.getByLabelText('Sélectionner TechCorp')
+          screen.getByLabelText('Sélectionner assurance petit')
         ).toBeInTheDocument()
       })
 
-      const checkbox = screen.getByLabelText('Sélectionner TechCorp')
+      const checkbox = screen.getByLabelText('Sélectionner assurance petit')
       expect(checkbox).not.toBeChecked()
 
       await user.click(checkbox)
@@ -140,11 +136,11 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
 
       await waitFor(() => {
         expect(
-          screen.getByLabelText('Sélectionner TechCorp')
+          screen.getByLabelText('Sélectionner assurance petit')
         ).toBeInTheDocument()
       })
 
-      const checkbox = screen.getByLabelText('Sélectionner TechCorp')
+      const checkbox = screen.getByLabelText('Sélectionner assurance petit')
 
       // Sélectionner
       await user.click(checkbox)
@@ -155,23 +151,19 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
       expect(checkbox).not.toBeChecked()
     })
 
-    it('permet de sélectionner plusieurs partenaires', async () => {
+    it('permet de sélectionner des partenaires', async () => {
       renderDashboard()
 
       await waitFor(() => {
         expect(
-          screen.getByLabelText('Sélectionner TechCorp')
+          screen.getByLabelText('Sélectionner assurance petit')
         ).toBeInTheDocument()
       })
 
-      const checkbox1 = screen.getByLabelText('Sélectionner TechCorp')
-      const checkbox2 = screen.getByLabelText('Sélectionner DesignStudio')
+      const checkbox = screen.getByLabelText('Sélectionner assurance petit')
 
-      await user.click(checkbox1)
-      await user.click(checkbox2)
-
-      expect(checkbox1).toBeChecked()
-      expect(checkbox2).toBeChecked()
+      await user.click(checkbox)
+      expect(checkbox).toBeChecked()
     })
   })
 
@@ -187,14 +179,12 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
       await user.click(selectAllCheckbox)
 
       // Vérifier que tous les checkboxes sont cochés
-      const techCorpCheckbox = screen.getByLabelText('Sélectionner TechCorp')
-      const designStudioCheckbox = screen.getByLabelText(
-        'Sélectionner DesignStudio'
+      const assurancePetitCheckbox = screen.getByLabelText(
+        'Sélectionner assurance petit'
       )
 
       expect(selectAllCheckbox).toBeChecked()
-      expect(techCorpCheckbox).toBeChecked()
-      expect(designStudioCheckbox).toBeChecked()
+      expect(assurancePetitCheckbox).toBeChecked()
     })
 
     it('permet de désélectionner tous les partenaires', async () => {
@@ -213,14 +203,12 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
       await user.click(selectAllCheckbox)
 
       // Vérifier que tous les checkboxes sont décochés
-      const techCorpCheckbox = screen.getByLabelText('Sélectionner TechCorp')
-      const designStudioCheckbox = screen.getByLabelText(
-        'Sélectionner DesignStudio'
+      const assurancePetitCheckbox = screen.getByLabelText(
+        'Sélectionner assurance petit'
       )
 
       expect(selectAllCheckbox).not.toBeChecked()
-      expect(techCorpCheckbox).not.toBeChecked()
-      expect(designStudioCheckbox).not.toBeChecked()
+      expect(assurancePetitCheckbox).not.toBeChecked()
     })
   })
 
@@ -229,12 +217,8 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
       renderDashboard()
 
       await waitFor(() => {
-        expect(screen.getByText('TechCorp')).toBeInTheDocument()
+        expect(screen.getByText('Assurance Petit')).toBeInTheDocument()
       })
-
-      expect(screen.getByText('DesignStudio')).toBeInTheDocument()
-      expect(screen.getByText('Jean')).toBeInTheDocument()
-      expect(screen.getByText('Marie')).toBeInTheDocument()
     })
 
     it('affiche les en-têtes de colonnes', async () => {

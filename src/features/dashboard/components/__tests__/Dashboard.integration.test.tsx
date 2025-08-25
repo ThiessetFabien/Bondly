@@ -11,34 +11,34 @@ vi.mock('../hooks/sortedPartners', () => ({
     sortedPartners: [
       {
         id: '1',
-        firstName: 'Jean',
-        lastName: 'Dupont',
-        profession: 'Développeur',
-        email: 'jean.dupont@example.com',
-        phone: '0123456789',
-        company: 'TechCorp',
-        rating: 4.5,
+        firstName: 'marie',
+        lastName: 'dubois',
+        profession: "avocat d'affaires",
+        email: 'marie.dubois@example.com',
+        phone: '01 23 45 67 89',
+        company: 'cabinet dubois & associés',
+        rating: 5,
         status: 'active',
-        notes: 'Excellent partenaire',
-        classifications: ['tech', 'startup'],
-        createdAt: '2023-01-01',
-        updatedAt: '2023-01-01',
+        notes: 'excellente collaboration, très professionnelle',
+        classifications: ['santé', 'spécialiste'],
+        createdAt: '2024-01-15T09:00:00Z',
+        updatedAt: '2024-12-15T10:30:00Z',
         relations: [],
       },
       {
         id: '2',
-        firstName: 'Marie',
-        lastName: 'Martin',
-        profession: 'Designer',
-        email: 'marie.martin@example.com',
-        phone: '0987654321',
-        company: 'DesignStudio',
-        rating: 3.8,
+        firstName: 'jean',
+        lastName: 'dupont',
+        profession: 'fiscaliste',
+        email: 'jean.dupont@cabinet-dupont.fr',
+        phone: '01 42 96 78 45',
+        company: 'cabinet dupont',
+        rating: 4,
         status: 'active',
-        notes: 'Bon contact',
-        classifications: ['design'],
-        createdAt: '2023-01-02',
-        updatedAt: '2023-01-02',
+        notes: 'très réactif, expertise solide en droit commercial',
+        classifications: ['juridique', 'affaires'],
+        createdAt: '2024-02-01T10:00:00Z',
+        updatedAt: '2024-12-10T14:15:00Z',
         relations: [],
       },
     ],
@@ -168,12 +168,14 @@ describe("Dashboard - Tests d'intégration", () => {
 
       // Attendre que les données soient rendues
       await waitFor(() => {
-        expect(screen.getByText('TechCorp')).toBeInTheDocument()
+        expect(
+          screen.getByText('Cabinet Dubois & Associés')
+        ).toBeInTheDocument()
       })
 
-      expect(screen.getByText('DesignStudio')).toBeInTheDocument()
-      expect(screen.getByText('Jean')).toBeInTheDocument()
-      expect(screen.getByText('Marie')).toBeInTheDocument()
+      expect(screen.getByText('Cabinet Dupont')).toBeInTheDocument()
+      expect(screen.getByText('jean')).toBeInTheDocument()
+      expect(screen.getByText('marie')).toBeInTheDocument()
     })
 
     it('affiche les en-têtes de colonnes', async () => {
@@ -196,9 +198,11 @@ describe("Dashboard - Tests d'intégration", () => {
         expect(screen.getByLabelText('Sélectionner tout')).toBeInTheDocument()
       })
 
-      expect(screen.getByLabelText('Sélectionner TechCorp')).toBeInTheDocument()
       expect(
-        screen.getByLabelText('Sélectionner DesignStudio')
+        screen.getByLabelText('Sélectionner cabinet dubois & associés')
+      ).toBeInTheDocument()
+      expect(
+        screen.getByLabelText('Sélectionner cabinet dupont')
       ).toBeInTheDocument()
     })
 
@@ -207,11 +211,13 @@ describe("Dashboard - Tests d'intégration", () => {
 
       await waitFor(() => {
         expect(
-          screen.getByLabelText('Sélectionner TechCorp')
+          screen.getByLabelText('Sélectionner cabinet dubois & associés')
         ).toBeInTheDocument()
       })
 
-      const checkbox = screen.getByLabelText('Sélectionner TechCorp')
+      const checkbox = screen.getByLabelText(
+        'Sélectionner cabinet dubois & associés'
+      )
       expect(checkbox).not.toBeChecked()
 
       await user.click(checkbox)
@@ -238,12 +244,16 @@ describe("Dashboard - Tests d'intégration", () => {
       renderDashboard()
 
       await waitFor(() => {
-        expect(screen.getByText('TechCorp')).toBeInTheDocument()
+        expect(
+          screen.getByText('Cabinet Dubois & Associés')
+        ).toBeInTheDocument()
       })
 
       // Vérifier que les informations des partenaires sont présentes
-      expect(screen.getByText('jean.dupont@example.com')).toBeInTheDocument()
-      expect(screen.getByText('marie.martin@example.com')).toBeInTheDocument()
+      expect(screen.getByText('marie.dubois@example.com')).toBeInTheDocument()
+      expect(
+        screen.getByText('jean.dupont@cabinet-dupont.fr')
+      ).toBeInTheDocument()
     })
   })
 
@@ -255,9 +265,11 @@ describe("Dashboard - Tests d'intégration", () => {
         expect(screen.getByLabelText('Sélectionner tout')).toBeInTheDocument()
       })
 
-      expect(screen.getByLabelText('Sélectionner TechCorp')).toBeInTheDocument()
       expect(
-        screen.getByLabelText('Sélectionner DesignStudio')
+        screen.getByLabelText('Sélectionner cabinet dubois & associés')
+      ).toBeInTheDocument()
+      expect(
+        screen.getByLabelText('Sélectionner cabinet dupont')
       ).toBeInTheDocument()
     })
 
