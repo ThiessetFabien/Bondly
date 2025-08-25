@@ -3,8 +3,8 @@
  * Organisation modulaire pour une maintenance optimisée
  */
 
-export { SidebarMobileHeader as MobileHeader } from './Header'
-export { SidebarMobile as MobileSidebar } from './Mobile'
+export { SidebarMobileHeader as MobileHeader } from './HeaderMobile'
 export { SidebarOverlay as MobileOverlay } from './Overlay'
+export { SidebarMobile as MobileSidebar } from './SidebarMobile'
 
 // Types pour les composants mobile

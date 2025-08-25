@@ -18,5 +18,11 @@
 
 ### Développement Frontend
 
-- Configurer, utiliser et séparer les préoccupations des style Tailwind
-- Mettre en place la gestion des états avec Redux Toolkit
+- Utiliser Tailwind pour séparer clairement les préoccupations de style et garantir la cohérence visuelle.
+- Gérer les états applicatifs avec Redux Toolkit pour une architecture prévisible et scalable.
+- Séparer les responsabilités : déplacer la logique métier (récupération d'items, gestion du toggle, etc.) dans des hooks dédiés.
+- Préparer les classes CSS ou les éléments en amont pour éviter les calculs conditionnels dans le rendu et améliorer la lisibilité du JSX.
+- Utiliser des noms de variables explicites pour les classes CSS, les éléments conditionnels et la logique métier.
+- Retirer le code mort et les blocs inutilisés pour garder le code propre et maintenable.
+- Remplacer les usages de `opacity-0` par `hidden` ou ne pas rendre l'élément selon le contexte pour une meilleure accessibilité et performance.
+- Documenter chaque composant, sous-composant et chaque hook pour faciliter la prise en main et la maintenance du projet.

@@ -3,7 +3,7 @@
  * Organisation modulaire pour une maintenance optimisée
  */
 
-export { SidebarDesktop as DesktopSidebar } from './Desktop'
-export { SidebarDesktopHeader as DesktopHeader } from './Header'
+export { SidebarDesktopHeader as DesktopHeader } from './HeaderDesktop'
+export { SidebarDesktop as DesktopSidebar } from './SidebarDesktop'
 
 // Types pour les composants desktop

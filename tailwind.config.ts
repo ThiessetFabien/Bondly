@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss'
 import plugin from 'tailwindcss/plugin'
 
 interface DaisyUIConfig extends Config {
+  safelist?: string[]
   daisyui?: {
     themes?: any[]
     darkTheme?: string
@@ -20,8 +21,24 @@ const config: DaisyUIConfig = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/features/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/shared/**/*.{js,ts,jsx,tsx,mdx}',
+    '@/shared/**/*.{js,ts,jsx,tsx,mdx}', // Ajout alias pour compatibilité avec @/shared
     './node_modules/shadcn-ui/dist/**/*.{js,ts,jsx,tsx}',
     './node_modules/21dev-ui/dist/**/*.{js,ts,jsx,tsx}',
+  ],
+  safelist: [
+    'page-main',
+    'page-card',
+    'page-header',
+    'page-title',
+    'page-filters',
+    'page-description',
+    'page-table-container',
+    'fab-container',
+    'btn-deselect-fixed',
+    'btn-deselect-expanded',
+    'btn-deselect-compact',
   ],
   theme: {
     container: {
@@ -120,6 +137,43 @@ const config: DaisyUIConfig = {
     // Plugin personnalisé pour les composants éco-conçus (optimisé)
     plugin(function ({ addComponents, addUtilities, theme }) {
       addComponents({
+        // === PARTNERS DASHBOARD PAGE ===
+        '.page-main': {
+          '@apply min-h-screen flex flex-col items-center justify-start bg-base-200':
+            {},
+        },
+        '.page-card': {
+          '@apply w-full mx-auto card bg-base-100 shadow-xl p-4 md:p-8': {},
+        },
+        '.page-header': {
+          '@apply flex flex-wrap items-center gap-4 mb-6': {},
+        },
+        '.page-title': {
+          '@apply text-4xl font-bold text-primary m-0 hidden sm:block': {},
+        },
+        '.page-filters': {
+          '@apply flex flex-wrap items-center gap-2': {},
+        },
+        '.page-description': {
+          '@apply text-base-content mb-8 hidden sm:block': {},
+        },
+        '.page-table-container': {
+          '@apply overflow-x-auto': {},
+        },
+        '.fab-container': {
+          '@apply fixed bottom-6 right-6 z-50 w-16 h-16 flex items-end justify-end sm:static sm:w-auto sm:h-auto':
+            {},
+        },
+        '.btn-deselect-fixed': {
+          '@apply fixed z-50 bg-error text-white rounded-full flex items-center justify-center shadow-md hover:bg-error/90 transition w-14 h-14 bottom-4 left-4 sm:w-16 sm:h-16 sm:bottom-6':
+            {},
+        },
+        '.btn-deselect-expanded': {
+          '@apply lg:left-[calc(320px+1.5rem)]': {},
+        },
+        '.btn-deselect-compact': {
+          '@apply lg:left-[calc(64px+1.5rem)]': {},
+        },
         // === LAYOUTS ÉCO-CONÇUS ===
         '.flex-center': {
           '@apply flex items-center justify-center': {},
@@ -404,37 +458,8 @@ const config: DaisyUIConfig = {
     }),
   ],
   daisyui: {
-    themes: [
-      {
-        light: {
-          primary: '#0066cc',
-          secondary: '#6366f1',
-          accent: '#f59e0b',
-          neutral: '#374151',
-          'base-100': '#ffffff',
-          'base-200': '#f8fafc',
-          'base-300': '#e2e8f0',
-          info: '#0ea5e9',
-          success: '#10b981',
-          warning: '#f59e0b',
-          error: '#ef4444',
-        },
-        dark: {
-          primary: '#3b82f6',
-          secondary: '#8b5cf6',
-          accent: '#fbbf24',
-          neutral: '#1f2937',
-          'base-100': '#111827',
-          'base-200': '#1f2937',
-          'base-300': '#374151',
-          info: '#0ea5e9',
-          success: '#10b981',
-          warning: '#fbbf24',
-          error: '#f87171',
-        },
-      },
-    ],
-    darkTheme: 'dark',
+    themes: ['business'],
+    darkTheme: 'business',
     base: true,
     styled: true,
     utils: true,

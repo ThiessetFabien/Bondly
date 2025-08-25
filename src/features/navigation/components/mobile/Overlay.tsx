@@ -1,21 +1,17 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import {
-  selectSidebarMobileOpen,
-  setSidebarMobileOpen,
-} from '@/store/slices/uiSlice'
+import { useDashboard } from '@/store/context/DashboardContext'
 import { AnimatePresence, motion, PanInfo } from 'framer-motion'
 import { useCallback, useRef, useState } from 'react'
 
 export function SidebarOverlay() {
-  const dispatch = useAppDispatch()
-  const isMobileOpen = useAppSelector(selectSidebarMobileOpen)
+  const { state, dispatch } = useDashboard()
+  const isMobileOpen = state.sidebar.isMobileOpen
   const [isDragging, setIsDragging] = useState(false)
   const lastTouchRef = useRef<{ x: number; y: number } | null>(null)
 
   const closeMobile = useCallback(() => {
-    dispatch(setSidebarMobileOpen(false))
+    dispatch({ type: 'SET_SIDEBAR_MOBILE_OPEN', payload: false })
   }, [dispatch])
 
   // Gestion des swipes pour fermer
@@ -43,6 +39,8 @@ export function SidebarOverlay() {
     },
     [closeMobile]
   )
+
+  if (!isMobileOpen) return null
 
   return (
     <AnimatePresence>

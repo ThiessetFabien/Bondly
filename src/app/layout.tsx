@@ -1,8 +1,9 @@
-import { ClientLayout } from '@/layout/ClientLayout'
-import { ReduxProvider } from '@/store/ReduxProvider'
 import { Layout } from 'lucide-react'
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import { DashboardProvider } from '../store/context/DashboardContext'
+
+import { Sidebar } from '@/features/navigation/Sidebar'
 import './globals.css'
 
 // Configuration des polices avec optimisation
@@ -32,19 +33,22 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-interface RootLayoutProps {
-  readonly children: React.ReactNode
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang='fr' className='dark'>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground min-h-dvh`}
       >
-        <ReduxProvider>
-          <ClientLayout>{children}</ClientLayout>
-        </ReduxProvider>
+        <DashboardProvider>
+          <div className='flex flex-row w-full min-h-dvh'>
+            <Sidebar />
+            <main className='flex-1 min-w-0 flex flex-col'>{children}</main>
+          </div>
+        </DashboardProvider>
       </body>
     </html>
   )

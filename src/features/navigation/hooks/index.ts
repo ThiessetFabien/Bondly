@@ -1,12 +1,6 @@
 'use client'
 
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
-import {
-  selectNavigationDesktopExpanded,
-  selectNavigationHovered,
-  setNavigationHovered,
-  toggleNavigationDesktop,
-} from '@/store/slices/uiSlice'
+import { useDashboard } from '@/store/context/DashboardContext'
 import { useCallback, useMemo } from 'react'
 
 /**
@@ -14,41 +8,34 @@ import { useCallback, useMemo } from 'react'
  * Utilise la nouvelle API de navigation (sans compact)
  */
 export function useSidebarState() {
-  const dispatch = useAppDispatch()
-  const isExpanded = useAppSelector(selectNavigationDesktopExpanded)
-  const isHovered = useAppSelector(selectNavigationHovered)
+  const { state, dispatch } = useDashboard()
+  const isExpanded = state.sidebar.isExpanded
+  const isHovered = state.sidebar.isHovered
 
   // Actions pour contrôler la sidebar
-  const handleToggleExpanded = useCallback(() => {
-    dispatch(toggleNavigationDesktop())
+  const toggleExpanded = useCallback(() => {
+    dispatch({ type: 'TOGGLE_SIDEBAR_EXPANDED' })
   }, [dispatch])
 
-  const handleSetHovered = useCallback(
+  const setHovered = useCallback(
     (hovered: boolean) => {
-      dispatch(setNavigationHovered(hovered))
+      dispatch({ type: 'SET_SIDEBAR_HOVERED', payload: hovered })
     },
     [dispatch]
   )
 
-  // Mémoisation des états calculés pour éviter les re-renders inutiles
-  const sidebarState = useMemo(() => {
-    return {
-      isExpanded,
-      isHovered,
-      // Actions
-      toggleExpanded: handleToggleExpanded,
-      setHovered: handleSetHovered,
-      // Classes CSS optimisées
-      sidebarClasses: isExpanded ? 'sidebar-expanded' : 'sidebar-compact',
-      contentMarginClasses: isExpanded
-        ? 'sidebar-responsive-margin-expanded'
-        : 'sidebar-responsive-margin',
-      // Largeurs en pixels pour les calculs JS si nécessaire
-      sidebarWidth: isExpanded ? 320 : 64,
-    }
-  }, [isExpanded, isHovered, handleToggleExpanded, handleSetHovered])
-
-  return sidebarState
+  return {
+    isExpanded,
+    isHovered,
+    toggleExpanded,
+    setHovered,
+    sidebarClasses: isExpanded ? 'sidebar-expanded' : 'sidebar-compact',
+    contentMarginClasses: isExpanded
+      ? 'sidebar-responsive-margin-expanded'
+      : 'sidebar-responsive-margin',
+    sidebarWidth: isExpanded ? 320 : 64,
+  }
+  // ...existing code...
 }
 
 /**
@@ -143,6 +130,3 @@ export function useSidebarResponsive() {
 
 // Export du nouveau hook pour les interactions
 export * from './interactions'
-
-// Export du hook pour l'accessibilité
-export * from './accessibility'

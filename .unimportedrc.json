@@ -5,7 +5,6 @@
     "src/app/api/**/*.ts",
     "src/components/ui/*/index.ts",
     "src/features/*/index.ts",
-    "src/store/index.ts",
     "src/lib/utils.ts",
     "src/services/index.ts"
   ],
