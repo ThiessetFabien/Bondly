@@ -1,6 +1,5 @@
 import { DashboardProvider } from '@/store/context/DashboardContext'
 import { render, screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Dashboard } from '../Dashboard'
@@ -79,11 +78,8 @@ vi.mock('@/shared/components/icons/Relation.svg', () => ({
   Relation: () => <svg data-testid='relation-icon' />,
 }))
 
-describe('Dashboard - Fonctionnalité de sélection', () => {
-  let user: ReturnType<typeof userEvent.setup>
-
+describe('Dashboard - Affichage et contenu', () => {
   beforeEach(() => {
-    user = userEvent.setup()
     vi.clearAllMocks()
   })
 
@@ -111,104 +107,6 @@ describe('Dashboard - Fonctionnalité de sélection', () => {
           screen.getByLabelText('Sélectionner assurance petit')
         ).toBeInTheDocument()
       })
-    })
-  })
-
-  describe('Interaction avec les checkboxes', () => {
-    it('permet de sélectionner un partenaire', async () => {
-      renderDashboard()
-
-      await waitFor(() => {
-        expect(
-          screen.getByLabelText('Sélectionner assurance petit')
-        ).toBeInTheDocument()
-      })
-
-      const checkbox = screen.getByLabelText('Sélectionner assurance petit')
-      expect(checkbox).not.toBeChecked()
-
-      await user.click(checkbox)
-      expect(checkbox).toBeChecked()
-    })
-
-    it('permet de désélectionner un partenaire', async () => {
-      renderDashboard()
-
-      await waitFor(() => {
-        expect(
-          screen.getByLabelText('Sélectionner assurance petit')
-        ).toBeInTheDocument()
-      })
-
-      const checkbox = screen.getByLabelText('Sélectionner assurance petit')
-
-      // Sélectionner
-      await user.click(checkbox)
-      expect(checkbox).toBeChecked()
-
-      // Désélectionner
-      await user.click(checkbox)
-      expect(checkbox).not.toBeChecked()
-    })
-
-    it('permet de sélectionner des partenaires', async () => {
-      renderDashboard()
-
-      await waitFor(() => {
-        expect(
-          screen.getByLabelText('Sélectionner assurance petit')
-        ).toBeInTheDocument()
-      })
-
-      const checkbox = screen.getByLabelText('Sélectionner assurance petit')
-
-      await user.click(checkbox)
-      expect(checkbox).toBeChecked()
-    })
-  })
-
-  describe('Sélection globale', () => {
-    it('permet de sélectionner tous les partenaires', async () => {
-      renderDashboard()
-
-      await waitFor(() => {
-        expect(screen.getByLabelText('Sélectionner tout')).toBeInTheDocument()
-      })
-
-      const selectAllCheckbox = screen.getByLabelText('Sélectionner tout')
-      await user.click(selectAllCheckbox)
-
-      // Vérifier que tous les checkboxes sont cochés
-      const assurancePetitCheckbox = screen.getByLabelText(
-        'Sélectionner assurance petit'
-      )
-
-      expect(selectAllCheckbox).toBeChecked()
-      expect(assurancePetitCheckbox).toBeChecked()
-    })
-
-    it('permet de désélectionner tous les partenaires', async () => {
-      renderDashboard()
-
-      await waitFor(() => {
-        expect(screen.getByLabelText('Sélectionner tout')).toBeInTheDocument()
-      })
-
-      const selectAllCheckbox = screen.getByLabelText('Sélectionner tout')
-
-      // Sélectionner tout d'abord
-      await user.click(selectAllCheckbox)
-
-      // Puis désélectionner tout
-      await user.click(selectAllCheckbox)
-
-      // Vérifier que tous les checkboxes sont décochés
-      const assurancePetitCheckbox = screen.getByLabelText(
-        'Sélectionner assurance petit'
-      )
-
-      expect(selectAllCheckbox).not.toBeChecked()
-      expect(assurancePetitCheckbox).not.toBeChecked()
     })
   })
 
