@@ -49,3 +49,9 @@ next-env.d.ts
 # playwright
 /playwright-report/
 /test-results/
+
+# dead code analysis
+dead-code-analysis.json
+lint-report.json
+.unimported
+/test-results/

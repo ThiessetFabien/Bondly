@@ -1,0 +1,196 @@
+{
+  "partners": [
+    {
+      "id": "1",
+      "firstName": "marie",
+      "lastName": "dubois",
+      "profession": "avocat d'affaires",
+      "email": "marie.dubois@example.com",
+      "phone": "01 23 45 67 89",
+      "company": "cabinet dubois & associés",
+      "rating": 5,
+      "status": "active",
+      "notes": "excellente collaboration, très professionnelle",
+      "classifications": ["santé", "spécialiste"],
+      "createdAt": "2024-01-15T09:00:00Z",
+      "updatedAt": "2024-12-15T10:30:00Z",
+      "relations": [
+        {
+          "id": "2",
+          "name": "jean dupont",
+          "company": "cabinet dupont",
+          "type": "collaboration"
+        },
+        {
+          "id": "3",
+          "name": "sophie martin",
+          "company": "comptabilité martin",
+          "type": "recommandation"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "firstName": "jean",
+      "lastName": "dupont",
+      "profession": "fiscaliste",
+      "email": "jean.dupont@cabinet-dupont.fr",
+      "phone": "01 42 96 78 45",
+      "company": "cabinet dupont",
+      "rating": 4,
+      "status": "active",
+      "notes": "très réactif, expertise solide en droit commercial",
+      "classifications": ["juridique", "affaires"],
+      "createdAt": "2024-02-01T10:00:00Z",
+      "updatedAt": "2024-12-10T14:15:00Z",
+      "relations": [
+        {
+          "id": "1",
+          "name": "marie dubois",
+          "company": "cabinet dubois & associés",
+          "type": "collaboration"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "firstName": "sophie",
+      "lastName": "martin",
+      "profession": "expert en gestion de paie & ressources humaines",
+      "email": "sophie.martin@comptabilite-martin.fr",
+      "phone": "01 34 56 78 90",
+      "company": "comptabilité martin",
+      "rating": 4,
+      "status": "active",
+      "notes": "très compétente en fiscalité, recommandée pour les pme",
+      "classifications": ["finance", "comptabilité"],
+      "createdAt": "2024-03-10T11:00:00Z",
+      "updatedAt": "2024-12-05T16:20:00Z",
+      "relations": [
+        {
+          "id": "1",
+          "name": "marie dubois",
+          "company": "cabinet dubois & associés",
+          "type": "recommandation"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "firstName": "pierre",
+      "lastName": "rousseau",
+      "profession": "notaire",
+      "email": "pierre.rousseau@etude-rousseau.fr",
+      "phone": "01 45 67 89 01",
+      "company": "étude rousseau",
+      "rating": 5,
+      "status": "active",
+      "notes": "excellent pour les transactions immobilières",
+      "classifications": ["immobilier", "juridique"],
+      "createdAt": "2024-04-20T08:30:00Z",
+      "updatedAt": "2024-11-30T09:45:00Z",
+      "relations": []
+    },
+    {
+      "id": "5",
+      "firstName": "catherine",
+      "lastName": "leroy",
+      "profession": "cabinet de gestion de patrimoine",
+      "email": "catherine.leroy@clinique-leroy.fr",
+      "phone": "01 56 78 90 12",
+      "company": "clinique leroy",
+      "rating": 4,
+      "status": "archived",
+      "notes": "nouvelle collaboratrice, à suivre",
+      "classifications": ["santé", "spécialiste"],
+      "createdAt": "2024-11-01T14:00:00Z",
+      "updatedAt": "2024-12-01T10:15:00Z",
+      "relations": []
+    },
+    {
+      "id": "6",
+      "firstName": "thomas",
+      "lastName": "bernard",
+      "profession": "huissier de justice",
+      "email": "thomas.bernard@huissier-bernard.fr",
+      "phone": "01 67 89 01 23",
+      "company": "étude bernard",
+      "rating": 4,
+      "status": "active",
+      "notes": "efficace pour les recouvrements",
+      "classifications": ["juridique", "exécution"],
+      "createdAt": "2024-05-15T10:00:00Z",
+      "updatedAt": "2024-12-20T11:30:00Z",
+      "relations": []
+    },
+    {
+      "id": "7",
+      "firstName": "claire",
+      "lastName": "moreau",
+      "profession": "banque",
+      "email": "claire.moreau@banque-moreau.fr",
+      "phone": "01 78 90 12 34",
+      "company": "banque moreau & associés",
+      "rating": 5,
+      "status": "active",
+      "notes": "excellente relation bancaire, réactive",
+      "classifications": ["finance", "banque"],
+      "createdAt": "2024-06-01T09:15:00Z",
+      "updatedAt": "2024-12-18T14:45:00Z",
+      "relations": []
+    },
+    {
+      "id": "8",
+      "firstName": "nicolas",
+      "lastName": "petit",
+      "profession": "assureur",
+      "email": "nicolas.petit@assurance-petit.fr",
+      "phone": "01 89 01 23 45",
+      "company": "assurance petit",
+      "rating": 3,
+      "status": "active",
+      "notes": "bon rapport qualité-prix, délais corrects",
+      "classifications": ["assurance", "risque"],
+      "createdAt": "2024-07-10T11:30:00Z",
+      "updatedAt": "2024-12-12T16:00:00Z",
+      "relations": []
+    },
+    {
+      "id": "9",
+      "firstName": "isabelle",
+      "lastName": "roux",
+      "profession": "cabinet de recrutement",
+      "email": "isabelle.roux@recrutement-roux.fr",
+      "phone": "01 90 12 34 56",
+      "company": "recrutement roux",
+      "rating": 4,
+      "status": "active",
+      "notes": "spécialisée dans les profils juridiques",
+      "classifications": ["ressources humaines", "recrutement"],
+      "createdAt": "2024-08-20T08:00:00Z",
+      "updatedAt": "2024-12-08T10:20:00Z",
+      "relations": []
+    },
+    {
+      "id": "10",
+      "firstName": "françois",
+      "lastName": "blanc",
+      "profession": "compagnie d'affacturage",
+      "email": "francois.blanc@affacturage-blanc.fr",
+      "phone": "01 01 23 45 67",
+      "company": "affacturage blanc",
+      "rating": 5,
+      "status": "blacklisted",
+      "notes": "problème de facturation, à éviter",
+      "classifications": ["finance", "affacturage"],
+      "createdAt": "2024-09-05T13:45:00Z",
+      "updatedAt": "2024-12-03T09:30:00Z",
+      "relations": []
+    }
+  ],
+  "meta": {
+    "total": 10,
+    "lastUpdated": "2024-12-20T15:30:00Z",
+    "version": "1.0"
+  }
+}

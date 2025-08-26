@@ -68,7 +68,7 @@
 
 - **RGPD** : Chiffrement, droit à l'oubli, consentement explicite
 - **Audit trail** : Traçabilité complète des actions sensibles
-- **Authentification** : Gestion des sessions sécurisées
+- **Authentification** : Pour le MVP, utilisation d'un système d'authentification email/mot de passe ; gestion des sessions. La possibilité d’intégration SSO (notamment via LinkedIn) sera envisagée dans une version ultérieure.
 
 ---
 
@@ -507,8 +507,7 @@ frontend/
 ```tsx
 import { type FC } from 'react'
 import { Phone, Mail, Star, Archive, AlertTriangle } from 'lucide-react'
-import { Button } from '@/shared/components/ui/Button'
-import { Badge } from '@/shared/components/ui/Badge'
+import { Button } from '@/components/ui/button'
 import { type Partner } from '../types'
 
 interface PartnerCardProps {

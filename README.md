@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Application de gestion des relations partenaires
 
-## Getting Started
+## Ce que j'ai appris
 
-First, run the development server:
+### Conception avec le client
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Concevoir une application répondant au besoin d'un cabinet d'expert comptable
+- Appréhender et comprendre la logique du métier d'expert comptable dans le périmètre de son besoin
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environnement de développement
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Configurer et assure la qualité du code délivré avec linter, formattage, typage strict en amont de chaques commits
+- Mettre en place, configurer et utiliser un container (Docker)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Testes
 
-## Learn More
+- Configurer et tester le projet selon la méthodologie "Test Driven Development" à base de données fictives dans une API Json afin d'assurer la robustesse de l'application avec (Jest, Playwright)
 
-To learn more about Next.js, take a look at the following resources:
+### Développement Frontend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Utiliser Tailwind pour séparer clairement les préoccupations de style et garantir la cohérence visuelle.
+- Gérer les états applicatifs avec Redux Toolkit pour une architecture prévisible et scalable.
+- Séparer les responsabilités : déplacer la logique métier (récupération d'items, gestion du toggle, etc.) dans des hooks dédiés.
+- Préparer les classes CSS ou les éléments en amont pour éviter les calculs conditionnels dans le rendu et améliorer la lisibilité du JSX.
+- Utiliser des noms de variables explicites pour les classes CSS, les éléments conditionnels et la logique métier.
+- Retirer le code mort et les blocs inutilisés pour garder le code propre et maintenable.
+- Remplacer les usages de `opacity-0` par `hidden` ou ne pas rendre l'élément selon le contexte pour une meilleure accessibilité et performance.
+- Documenter chaque composant, sous-composant et chaque hook pour faciliter la prise en main et la maintenance du projet.
