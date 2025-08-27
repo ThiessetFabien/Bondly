@@ -4,7 +4,7 @@ import type { Partner } from '../../../shared/types/Partner'
 import { useDashboard } from '../../../store/context/DashboardContext'
 
 export function useSortedPartners() {
-  const partners: Partner[] = partnersData.partners
+  const partners = partnersData.partners as Partner[]
   const { state } = useDashboard()
   const { statusFilter, sortOrder, sortBy, searchTerm, activeClassification } =
     state
@@ -17,7 +17,7 @@ export function useSortedPartners() {
   const matchesSearch = (
     partner: Pick<
       Partner,
-      'firstName' | 'lastName' | 'profession' | 'company' | 'email' | 'phone'
+      'firstname' | 'lastname' | 'job' | 'company' | 'email' | 'phone'
     >,
     searchTerm: string
   ) => {
@@ -33,9 +33,9 @@ export function useSortedPartners() {
 
     if (!normalizedSearch) return true
     return (
-      matchSearch(partner.firstName, normalizedSearch) ||
-      matchSearch(partner.lastName, normalizedSearch) ||
-      matchSearch(partner.profession, normalizedSearch) ||
+      matchSearch(partner.firstname, normalizedSearch) ||
+      matchSearch(partner.lastname, normalizedSearch) ||
+      matchSearch(partner.job, normalizedSearch) ||
       matchSearch(partner.company, normalizedSearch) ||
       matchSearch(partner.email, normalizedSearch) ||
       matchSearch(partner.phone, normalizedSearch)
@@ -55,7 +55,7 @@ export function useSortedPartners() {
 
   // Filtrage amélioré
   const filteredPartners = partners.filter(
-    (partner: Partner) =>
+    partner =>
       matchesStatus(partner, statusFilter) &&
       matchesSearch(partner, searchTerm) &&
       matchesClassification(partner, activeClassification)

@@ -21,7 +21,7 @@ import { Email } from '../../../shared/components/icons/Email.svg'
 import { Phone } from '../../../shared/components/icons/Phone.svg'
 import { Relation } from '../../../shared/components/icons/Relation.svg'
 import { cnIcon } from '../../../shared/styles/icons.styles'
-import type { Partner, PartnersTableProps } from '../../../shared/types/Partner'
+import type { PartnersTableProps } from '../../../shared/types/Partner'
 import {
   allFirstLetterToUpperCase,
   oneFirstLetterToUpperCase,
@@ -145,7 +145,7 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
           </thead>
           <tbody className='h-full w-full table-fixed align-middle'>
             {sortedPartners.length ? (
-              sortedPartners.map((partner: Partner) => (
+              sortedPartners.map(partner => (
                 <tr
                   key={partner.id}
                   tabIndex={0}
@@ -174,7 +174,7 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
                       title=''
                       variant='square'
                       href={`mailto:${partner.email}`}
-                      ariaLabel={`Envoyer un email à ${partner.firstName} ${partner.lastName}`}
+                      ariaLabel={`Envoyer un email à ${partner.firstname} ${partner.lastname}`}
                       rôle='button'
                       tabIndex={0}
                     />
@@ -183,7 +183,7 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
                       title=''
                       variant='circle'
                       href={`tel:${partner.phone}`}
-                      ariaLabel={`Appeler ${partner.firstName} ${partner.lastName}`}
+                      ariaLabel={`Appeler ${partner.firstname} ${partner.lastname}`}
                       rôle='button'
                       tabIndex={0}
                     />
@@ -252,7 +252,7 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
                               usePortal={true}
                             >
                               <p className='text-sm text-base-content/90 whitespace-pre-line'>
-                                {oneFirstLetterToUpperCase(partner.notes) || (
+                                {oneFirstLetterToUpperCase(partner.comment) || (
                                   <span className='italic text-base-content/60'>
                                     Aucun commentaire
                                   </span>
@@ -274,8 +274,8 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
                           {/* Infos interlocuteur */}
                           <div className='flex flex-col justify-center flex-1 min-w-0'>
                             <span className='font-bold text-base text-secondary-content truncate block min-w-0'>
-                              {oneFirstLetterToUpperCase(partner.lastName)}{' '}
-                              {oneFirstLetterToUpperCase(partner.firstName)}
+                              {oneFirstLetterToUpperCase(partner.lastname)}{' '}
+                              {oneFirstLetterToUpperCase(partner.firstname)}
                             </span>
                             <Badge
                               color='accent'
@@ -284,7 +284,7 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
                               className='badge-soft mt-1 align-middle whitespace-nowrap'
                             >
                               <span className='truncate'>
-                                {allFirstLetterToUpperCase(partner.profession)}
+                                {allFirstLetterToUpperCase(partner.job)}
                               </span>
                             </Badge>
                           </div>
@@ -297,7 +297,7 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
                         <ActionLinkButton
                           icon={<Email className='h-3 -translate-y-0.5' />}
                           href={`mailto:${partner.email}`}
-                          ariaLabel={`Envoyer un email à ${partner.firstName} ${partner.lastName}`}
+                          ariaLabel={`Envoyer un email à ${partner.firstname} ${partner.lastname}`}
                           rôle='button'
                           className='text-nowrap text-accent-foreground text-xs w-auto px-2 py-1'
                         />
@@ -306,7 +306,7 @@ const Dashboard: React.FC<PartnersTableProps> = props => {
                           variant='circle'
                           icon={<Phone className='h-3 -translate-y-0.5' />}
                           href={`tel:${partner.phone}`}
-                          ariaLabel={`Appeler ${partner.firstName} ${partner.lastName}`}
+                          ariaLabel={`Appeler ${partner.firstname} ${partner.lastname}`}
                           rôle='button'
                           className='text-nowrap text-accent-foreground text-xs w-auto px-2 py-1'
                         />

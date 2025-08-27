@@ -30,7 +30,7 @@ const initialState: DashboardState = {
   },
   sortBy: 'company',
   sortOrder: 'asc',
-  statusFilter: 'active',
+  statusFilter: 'actived',
   activeClassification: '',
   classifications: getAllClassifications(),
   selectedRows: [],
@@ -44,7 +44,10 @@ type DashboardAction =
   | { type: 'SET_SIDEBAR_HOVERED'; payload: boolean }
   | { type: 'SET_SORT_BY'; payload: 'company' | 'rating' | 'relations' }
   | { type: 'SET_SORT_ORDER'; payload: 'asc' | 'desc' }
-  | { type: 'SET_STATUS_FILTER'; payload: string }
+  | {
+      type: 'SET_STATUS_FILTER'
+      payload: string
+    }
   | { type: 'SET_ACTIVE_CLASSIFICATION'; payload: string }
   | { type: 'CLEAR_SEARCH' }
   | { type: 'SET_CLASSIFICATIONS'; payload: PartnerClassification[] }

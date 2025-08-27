@@ -3,17 +3,20 @@ export type PartnerClassification = {
   name: string
   label: string
 }
+
+export type PartnerStatus = 'actived' | 'archived' | 'blacklisted'
+
 export type Partner = {
   id: string
-  firstName: string
-  lastName: string
-  profession: string
+  firstname: string
+  lastname: string
+  job: string
   email: string
   phone: string
   company: string
   rating: number
-  status: string // 'active' | 'archived' | 'blacklisted'
-  notes: string
+  status: PartnerStatus
+  comment: string
   classifications: string[]
   createdAt: string
   updatedAt: string
