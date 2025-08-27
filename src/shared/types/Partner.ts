@@ -4,7 +4,7 @@ export type PartnerClassification = {
   label: string
 }
 
-export type PartnerStatus = 'actived' | 'archived' | 'blacklisted'
+export type PartnerStatus = 'active' | 'archived' | 'blacklisted'
 
 export type Partner = {
   id: string

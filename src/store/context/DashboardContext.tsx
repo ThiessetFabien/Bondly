@@ -30,7 +30,7 @@ const initialState: DashboardState = {
   },
   sortBy: 'company',
   sortOrder: 'asc',
-  statusFilter: 'actived',
+  statusFilter: 'active',
   activeClassification: '',
   classifications: getAllClassifications(),
   selectedRows: [],
