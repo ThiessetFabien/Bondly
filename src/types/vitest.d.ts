@@ -1,10 +1,5 @@
 // Types globaux pour Vitest et Testing Library
 import '@testing-library/jest-dom'
 
-declare global {
-  namespace Vi {
-    interface JestAssertion<T = unknown> {
-      // Testing Library matchers will be automatically available
-    }
-  }
-}
+// L'import de @testing-library/jest-dom suffit pour avoir les matchers
+// disponibles dans Vitest grâce à la configuration
