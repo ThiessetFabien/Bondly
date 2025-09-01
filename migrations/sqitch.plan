@@ -1,0 +1,5 @@
+%syntax-version=1.0.0
+%project=bondly
+
+initial_schema 2025-08-27T16:01:51Z fabien <fabien@fablab-portable> # Création du schéma initial avec tables partners, classifications et relations
+migrate_partners_data 2025-08-28T08:14:21Z fabien <fabien@fablab-portable> # Migration des données partenaires depuis le fichier JSON

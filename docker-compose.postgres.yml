@@ -1,0 +1,112 @@
+version: '3.8'
+
+services:
+  # Base de données PostgreSQL pour Bondly (version configurable)
+  postgres:
+    image: postgres:${POSTGRES_VERSION:-17.5}-alpine
+    restart: unless-stopped
+    container_name: bondly_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-bondly}
+      POSTGRES_USER: ${DB_USER:-bondly_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-bondly_password}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      # PostgreSQL optimisations
+      POSTGRES_INITDB_ARGS: '--encoding=UTF8 --locale=fr_FR.UTF-8 --data-checksums'
+    ports:
+      - '${DB_PORT:-5432}:5432'
+    volumes:
+      # Données persistantes
+      - postgres_data:/var/lib/postgresql/data
+      # Scripts d'initialisation
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      # Configuration PostgreSQL optimisée
+      - ./database/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+
+    # Commande PostgreSQL 17.5 optimisée
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+      -c shared_preload_libraries=pg_stat_statements
+      -c log_statement=mod
+      -c log_min_duration_statement=1000
+
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U bondly_user -d bondly']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+    # Sécurité
+    security_opt:
+      - no-new-privileges:true
+
+    networks:
+      - bondly_network
+
+  # Interface d'administration pgAdmin (optionnel)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: unless-stopped
+    container_name: bondly_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@bondly.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+      - '8080:80'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bondly_network
+    profiles:
+      - admin
+
+  # Service de sauvegarde automatique (optionnel)
+  postgres_backup:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    container_name: bondly_backup
+    environment:
+      PGPASSWORD: bondly_password
+    volumes:
+      - ./backups:/backups
+      - ./scripts/backup.sh:/backup.sh:ro
+    command: |
+      sh -c '
+        while true; do
+          echo "Backup scheduled at $$(date)"
+          pg_dump -h postgres -U bondly_user -d bondly > /backups/bondly_backup_$$(date +%Y%m%d_%H%M%S).sql
+          echo "Backup completed at $$(date)"
+          # Nettoyage des sauvegardes > 7 jours
+          find /backups -name "*.sql" -mtime +7 -delete
+          # Attendre 24h
+          sleep 86400
+        done
+      '
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bondly_network
+    profiles:
+      - backup
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/postgres
+  pgadmin_data:
+    driver: local
+
+networks:
+  bondly_network:
+    driver: bridge
+    name: bondly_network

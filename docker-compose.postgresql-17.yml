@@ -1,0 +1,146 @@
+version: '3.8'
+
+services:
+  # =============================================================================
+  # POSTGRESQL 17.5 OPTIMISÉ POUR PRODUCTION
+  # =============================================================================
+  postgres:
+    image: postgres:17.5-alpine
+    container_name: bondly-postgres-17
+    restart: unless-stopped
+
+    environment:
+      # Variables de base
+      POSTGRES_DB: ${DB_NAME:-bondly}
+      POSTGRES_USER: ${DB_USER:-bondly_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-bondly_password_dev}
+
+      # PostgreSQL 17.5 optimisations
+      POSTGRES_INITDB_ARGS: '--encoding=UTF8 --locale=fr_FR.UTF-8 --data-checksums'
+
+    ports:
+      - '5432:5432'
+
+    volumes:
+      # Données persistantes
+      - postgres_data:/var/lib/postgresql/data
+
+      # Configuration PostgreSQL 17.5
+      - ./database/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+
+      # Scripts d'initialisation
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/migration-from-json.sql:/docker-entrypoint-initdb.d/02-migration.sql:ro
+
+      # Certificats SSL (production)
+      - ./database/ssl/server.crt:/var/lib/postgresql/server.crt:ro
+      - ./database/ssl/server.key:/var/lib/postgresql/server.key:ro
+      - ./database/ssl/ca.crt:/var/lib/postgresql/ca.crt:ro
+
+    command: >
+      postgres
+      -c config_file=/etc/postgresql/postgresql.conf
+      -c shared_preload_libraries=pg_stat_statements
+      -c log_statement=none
+      -c log_min_duration_statement=1000
+
+    # Healthcheck PostgreSQL 17
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U bondly_user -d bondly_prod']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+    # Sécurité
+    security_opt:
+      - no-new-privileges:true
+
+    # Limites de ressources (ajustez selon votre serveur)
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+  # =============================================================================
+  # PGADMIN POUR ADMINISTRATION (optionnel)
+  # =============================================================================
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: bondly-pgadmin
+    restart: unless-stopped
+
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@bondly.fr
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin_bondly_2025}
+      PGADMIN_CONFIG_SERVER_MODE: 'True'
+
+    ports:
+      - '8080:80'
+
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    # Profil optionnel (décommenter pour activer)
+    profiles:
+      - admin
+
+  # =============================================================================
+  # REDIS POUR CACHE (optionnel pour performances)
+  # =============================================================================
+  redis:
+    image: redis:7.2-alpine
+    container_name: bondly-redis
+    restart: unless-stopped
+
+    command: >
+      redis-server
+      --appendonly yes
+      --appendfsync everysec
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+
+    ports:
+      - '6379:6379'
+
+    volumes:
+      - redis_data:/data
+
+    # Profil optionnel (décommenter pour activer)
+    profiles:
+      - cache
+
+# =============================================================================
+# VOLUMES PERSISTANTS
+# =============================================================================
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/data/postgres
+
+  pgadmin_data:
+    driver: local
+
+  redis_data:
+    driver: local
+
+# =============================================================================
+# RÉSEAU
+# =============================================================================
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
