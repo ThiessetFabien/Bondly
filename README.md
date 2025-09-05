@@ -197,6 +197,20 @@ SQITCH_TARGET="dev"
 SQITCH_TOP_DIR="migrations"
 ```
 
+### Configuration Sqitch
+
+Le projet utilise Sqitch pour la gestion des migrations de base de données. Pour configurer Sqitch :
+
+```bash
+# Copier le template de configuration
+cp sqitch.conf.example sqitch.conf
+
+# Éditer avec vos paramètres de base de données
+# Remplacer YOUR_USERNAME et YOUR_PASSWORD
+```
+
+⚠️ **Important** : Le fichier `sqitch.conf` contient des informations sensibles et ne doit jamais être committé dans Git.
+
 ### Utilisation avec Docker
 
 Le projet propose plusieurs configurations Docker :

@@ -1,0 +1,18 @@
+[core]
+	engine = pg
+	top_dir = migrations
+	plan_file = migrations/sqitch.plan
+
+[engine "pg"]
+	target = dev
+	registry = sqitch
+	client = psql
+
+[target "dev"]
+	uri = db:pg://YOUR_USERNAME@localhost/bondly
+
+[target "docker"]
+	uri = db:pg://bondly_user:YOUR_PASSWORD@localhost:5432/bondly
+
+[target "production"]
+	uri = db:pg://bondly_user:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/bondly

@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# sqitch configuration (contains sensitive database info)
+sqitch.conf
+
 # vercel
 .vercel
 
@@ -55,3 +58,6 @@ dead-code-analysis.json
 lint-report.json
 .unimported
 /test-results/
+
+# sqitch configuration (contains sensitive data)
+sqitch.conf
