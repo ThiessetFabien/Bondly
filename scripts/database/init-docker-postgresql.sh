@@ -1,8 +1,8 @@
 #!/bin/bash
 # =============================================================================
-# SCRIPT D'INITIALISATION POSTGRESQL 17.5 - BONDLY
+# SCRIPT D'INITIALISATION DOCKER POSTGRESQL 17.5 - BONDLY
 # =============================================================================
-# Usage: ./init-postgresql-17.sh [production|development]
+# Usage: ./scripts/database/init-docker-postgresql.sh [production|development]
 # =============================================================================
 
 set -e  # Arrête en cas d'erreur

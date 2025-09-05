@@ -1,0 +1,56 @@
+
+> relational-partner-manager-frontend@0.1.0 dev /home/fabien/Projets/Bondly
+> next dev --turbopack
+
+ ⚠ Port 3000 is in use by an unknown process, using available port 3001 instead.
+   ▲ Next.js 15.5.2 (Turbopack)
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.1.86:3001
+   - Environments: .env.development, .env
+   - Experiments (use with caution):
+     · optimizePackageImports
+
+ ✓ Starting...
+ ✓ Ready in 1605ms
+ ○ Compiling /api/partners ...
+ ✓ Compiled /api/partners in 2.1s
+Erreur lors de la récupération des partenaires: error: la colonne pc.classification_id n'existe pas
+    at async Database.query (src/lib/db.ts:47:22)
+    at async PartnerService.getPartners (src/services/api/partners.ts:100:22)
+    at async GET (src/app/api/partners/route.ts:27:20)
+  45 |     const client = await pool.connect()
+  46 |     try {
+> 47 |       const result = await client.query(text, params)
+     |                      ^
+  48 |       return result.rows
+  49 |     } finally {
+  50 |       client.release() {
+  length: 122,
+  severity: 'ERREUR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '354',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3716',
+  routine: 'errorMissingColumn'
+}
+API Error: Error: Impossible de récupérer les partenaires
+    at PartnerService.getPartners (src/services/api/partners.ts:141:13)
+    at async GET (src/app/api/partners/route.ts:27:20)
+  139 |     } catch (error) {
+  140 |       console.error('Erreur lors de la récupération des partenaires:', error)
+> 141 |       throw new Error('Impossible de récupérer les partenaires')
+      |             ^
+  142 |     }
+  143 |   }
+  144 |
+ GET /api/partners 500 in 3003ms

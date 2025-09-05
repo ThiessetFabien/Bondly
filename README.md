@@ -92,7 +92,7 @@ Bondly est une application web moderne conçue pour faciliter la gestion des rel
 │   └── test-security.sh    # Tests de sécurité
 ├── scripts/                 # Scripts utilitaires
 │   ├── migrate-json-to-postgres.mjs  # Migration des données
-│   ├── init-database.sh     # Initialisation DB
+│   ├── init-database-with-migration.sh  # Initialisation DB + migration
 │   └── backup.sh           # Sauvegarde automatisée
 ├── e2e/                    # Tests end-to-end (Playwright)
 └── docs/                   # Documentation technique
@@ -158,7 +158,7 @@ cp .env.example .env
 # Éditez .env avec vos paramètres locaux
 
 # Initialisation de la base de données
-./scripts/init-database.sh
+./scripts/database/init-database-with-migration.sh
 
 # Déploiement des migrations
 sqitch deploy

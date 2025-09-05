@@ -13,7 +13,7 @@ export const CompanyAndNameCell: React.FC<{
   >
 }> = ({ partner }) => {
   return (
-    <>
+    <div className='space-y-1'>
       <p className='font-bold text-base text-secondary-content text-nowrap truncate'>
         {oneFirstLetterToUpperCase(partner.lastname)}{' '}
         {oneFirstLetterToUpperCase(partner.firstname)}
@@ -36,7 +36,7 @@ export const CompanyAndNameCell: React.FC<{
           <span className='font-bold'>{partner.relations?.length ?? 0}</span>
         </Badge>
       </div>
-    </>
+    </div>
   )
 }
 CompanyAndNameCell.displayName = 'CompanyAndNameCell'

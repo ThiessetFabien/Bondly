@@ -23,9 +23,10 @@ try {
 
   console.log('\n✅ Tests de base réussis!')
   console.log('💡 Playwright est configuré et fonctionnel')
-} catch {
+} catch (error) {
   console.log('\n❌ Échec des tests de base')
   console.log('💡 Vérifiez la configuration avec: npm run playwright:validate')
+  console.log('Erreur:', error.message)
   process.exit(1)
 }
 

@@ -16,11 +16,18 @@ export interface PaginatedResponse<T = unknown> {
   }
 }
 
+export interface ErrorDetails {
+  readonly field?: string
+  readonly code?: string
+  readonly expected?: string
+  readonly received?: string
+}
+
 export interface ErrorResponse {
   readonly error: {
     readonly message: string
     readonly code: string
-    readonly details?: Record<string, unknown>
+    readonly details?: ErrorDetails
   }
   readonly success: false
   readonly timestamp: string
@@ -38,9 +45,6 @@ export interface User {
 }
 
 export type UserRole = 'admin' | 'consultant' | 'collaborator'
-
-// Types pour les constantes
-export type PartnerStatus = 'active' | 'archived' | 'blacklisted'
 
 export type RatingValue = 1 | 2 | 3 | 4 | 5
 

@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # =============================================================================
-# SCRIPT D'INITIALISATION POSTGRESQL 17.5 POUR BONDLY
+# SCRIPT D'INITIALISATION POSTGRESQL 17.5 + MIGRATION POUR BONDLY
 # =============================================================================
-# Ce script initialise PostgreSQL 17.5 avec le schéma optimisé et les données
-# Usage: ./scripts/init-database.sh [environment]
+# Ce script initialise PostgreSQL 17.5 avec le schéma optimisé et migre les données JSON
+# Usage: ./scripts/database/init-database-with-migration.sh [environment]
 # =============================================================================
 
 set -e

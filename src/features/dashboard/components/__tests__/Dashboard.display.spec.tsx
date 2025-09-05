@@ -23,7 +23,7 @@ vi.mock('../desktop/TableHeaderCell', () => ({
 
 vi.mock('../mobile/CompanyAndNameCell', () => ({
   CompanyAndNameCell: ({ partner }: { partner: { company: string } }) => (
-    <td>{partner.company}</td>
+    <div>{partner.company}</div>
   ),
 }))
 
